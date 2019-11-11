@@ -1,28 +1,26 @@
 package Model;
 
-import dao.GenericDAO;
+import Persistense.PersistenciaTitulo;
 
-public class Titulo {
-
+public class Titulo 
+{
     private String isbn;
     private String nome;
     private String autor;
-    private GenericDAO dao;
+    
+    private PersistenciaTitulo persistenciaT;
 
-    public Titulo(String isbn, String nome, String autor, GenericDAO d) {
+    public Titulo(String isbn, String nome, String autor, PersistenciaTitulo persistenciaT) {
         this.isbn = isbn;
         this.nome = nome;
         this.autor = autor;
-        this.dao = d;
+        this.persistenciaT = persistenciaT;
     }
-/*
-    public boolean verficaTitulo() {   //Se o RA � null � retorna erro - m�todo aleat�rio
-        if (d.persistirTitulo(this)) {
-            return true;
-        }
-        return false;
+
+    public boolean verficaTitulo() {
+        return persistenciaT.persistirTitulo(this);
     }
-*/
+    
     public String getTitulo() {
         return isbn;
     }

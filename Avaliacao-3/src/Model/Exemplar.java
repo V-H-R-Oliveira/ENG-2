@@ -1,31 +1,29 @@
 package Model;
 
-import dao.GenericDAO;
+import Persistense.PersistenciaExemplar;
 
-public class Exemplar {
-
+public class Exemplar 
+{
     private boolean exemplar;
     private Titulo titulo;
     private String codigoExemplar;
     private String editora;
-    private GenericDAO dao;
 
+    private PersistenciaExemplar persistenciaE;
 
-    public Exemplar(boolean exemplar, Titulo titulo, String codigoExemplar, String editora, GenericDAO d) {
+    public Exemplar(boolean exemplar, Titulo titulo, String codigoExemplar, String editora, PersistenciaExemplar persistenciaE) {
         this.exemplar = exemplar;
         this.titulo = titulo;
         this.codigoExemplar = codigoExemplar;
         this.editora = editora;
-        this.dao = d;
+        this.persistenciaE = persistenciaE;
     }
-/*
-    public boolean verficaExemplar() {   //Se o RA � null � retorna erro - m�todo aleat�rio
-        if (dao.persistirExemplar(this)) {
-            return true;
-        }
-        return false;
+
+    public boolean verficaExemplar() 
+    {
+        return persistenciaE.persistirExemplar(this);
     }
-*/
+
     public boolean isExemplar() {
         return exemplar;
     }
@@ -58,5 +56,11 @@ public class Exemplar {
         this.editora = editora;
     }
 
+    public PersistenciaExemplar getPersistenciaE() {
+        return persistenciaE;
+    }
 
+    public void setPersistenciaL(PersistenciaExemplar persistenciaE) {
+        this.persistenciaE = persistenciaE;
+    }
 }
