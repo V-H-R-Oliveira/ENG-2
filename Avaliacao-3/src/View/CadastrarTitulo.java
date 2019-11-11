@@ -1,16 +1,13 @@
 package View;
 
 import Model.Titulo;
-import Persistense.PersistenciaTitulo;
 
 public class CadastrarTitulo extends javax.swing.JFrame {
 
-    PersistenciaTitulo pt;
     Menu menu;
 
-    public CadastrarTitulo(PersistenciaTitulo pt, Menu menu) {
+    public CadastrarTitulo(Menu menu) {
         initComponents();
-        this.pt = pt;
         this.menu = menu;
     }
 
@@ -108,13 +105,6 @@ public class CadastrarTitulo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        Titulo t;
-        String isbn = inputISBN.getText();
-        String nome = inputNome.getText();
-        String autor = inputAutor.getText();
-        t = new Titulo(isbn, nome, autor, pt);
-        t.verficaTitulo();
-
         menu.setVisible(true);
         dispose();
 

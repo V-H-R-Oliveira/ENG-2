@@ -1,7 +1,6 @@
 package Model;
 
-import Persistense.PersistenciaExemplar;
-import Persistense.PersistenciaTitulo;
+import dao.GenericDAO;
 
 public class Exemplar {
 
@@ -9,24 +8,24 @@ public class Exemplar {
     private Titulo titulo;
     private String codigoExemplar;
     private String editora;
+    private GenericDAO dao;
 
-    private PersistenciaExemplar persistenciaE;
 
-    public Exemplar(boolean exemplar, Titulo titulo, String codigoExemplar, String editora, PersistenciaExemplar persistenciaE) {
+    public Exemplar(boolean exemplar, Titulo titulo, String codigoExemplar, String editora, GenericDAO d) {
         this.exemplar = exemplar;
         this.titulo = titulo;
         this.codigoExemplar = codigoExemplar;
         this.editora = editora;
-        this.persistenciaE = persistenciaE;
+        this.dao = d;
     }
-
+/*
     public boolean verficaExemplar() {   //Se o RA � null � retorna erro - m�todo aleat�rio
-        if (persistenciaE.persistirExemplar(this)) {
+        if (dao.persistirExemplar(this)) {
             return true;
         }
         return false;
     }
-
+*/
     public boolean isExemplar() {
         return exemplar;
     }
@@ -59,12 +58,5 @@ public class Exemplar {
         this.editora = editora;
     }
 
-    public PersistenciaExemplar getPersistenciaE() {
-        return persistenciaE;
-    }
-
-    public void setPersistenciaL(PersistenciaExemplar persistenciaE) {
-        this.persistenciaE = persistenciaE;
-    }
 
 }

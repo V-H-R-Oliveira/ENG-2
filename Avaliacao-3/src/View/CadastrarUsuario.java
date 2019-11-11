@@ -6,7 +6,6 @@
 package View;
 
 import Model.Aluno;
-import Persistense.PersistenciaAluno;
 
 /**
  *
@@ -14,12 +13,10 @@ import Persistense.PersistenciaAluno;
  */
 public class CadastrarUsuario extends javax.swing.JFrame {
 
-    PersistenciaAluno pa;
     Menu menu;
 
-    public CadastrarUsuario(PersistenciaAluno pa, Menu menu) {
+    public CadastrarUsuario(Menu menu) {
         initComponents();
-        this.pa = pa;
         this.menu = menu;
     }
 
@@ -143,13 +140,6 @@ public class CadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_inputRAActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        Aluno a;
-        String ra = inputRA.getText();
-        String nome = inputNome.getText();
-        String contato = inputContato.getText();
-        a = new Aluno(ra, nome, contato, pa);
-        a.verficaAluno();
-
         menu.setVisible(true);
         dispose();
 

@@ -2,16 +2,13 @@ package View;
 
 import Model.Exemplar;
 import Model.Titulo;
-import Persistense.PersistenciaExemplar;
 
 public class CadastrarExemplar extends javax.swing.JFrame {
 
-    PersistenciaExemplar pe;
     Menu menu;
 
-    public CadastrarExemplar(PersistenciaExemplar pe, Menu menu) {
+    public CadastrarExemplar(Menu menu) {
         initComponents();
-        this.pe = pe;
         this.menu = menu;
     }
 
@@ -123,7 +120,7 @@ public class CadastrarExemplar extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         Exemplar e;
-        boolean exemplar = inputISBN.
+        /*boolean exemplar = inputISBN;
         Titulo titulo = inputNome.getText();
         String codigoExemplar = inputCodigo.getText();
         String editora = inputEditora.getText();
@@ -131,7 +128,7 @@ public class CadastrarExemplar extends javax.swing.JFrame {
         e.verficaExemplar();
 
         menu.setVisible(true);
-        dispose();
+        dispose();*/
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 

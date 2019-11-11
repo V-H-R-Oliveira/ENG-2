@@ -5,13 +5,8 @@
  */
 package View;
 
-import Persistense.PersistenciaAluno;
-import Persistense.PersistenciaTitulo;
-
 public class Menu extends javax.swing.JFrame {
 
-    PersistenciaAluno pa = new PersistenciaAluno();
-    PersistenciaTitulo pt = new PersistenciaTitulo();
 
     public Menu() {
         initComponents();
@@ -72,14 +67,12 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarUsuarioActionPerformed
-        CadastrarUsuario telaCadastroUsuario = new CadastrarUsuario(pa, this);
-        telaCadastroUsuario.setVisible(true);
+        //telaCadastroUsuario.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botaoCadastrarUsuarioActionPerformed
 
     private void botaoCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarLivroActionPerformed
-        CadastrarTitulo telaCadastrarLivro = new CadastrarTitulo(pt, this);
-        telaCadastrarLivro.setVisible(true);
+        //telaCadastrarLivro.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_botaoCadastrarLivroActionPerformed
 

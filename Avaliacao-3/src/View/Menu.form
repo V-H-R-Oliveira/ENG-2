@@ -57,7 +57,6 @@
     <Component class="javax.swing.JButton" name="botaoCadastrarLivro">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cadastrar Livro"/>
-        <Property name="actionCommand" type="java.lang.String" value="Cadastrar Livro"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarLivroActionPerformed"/>
