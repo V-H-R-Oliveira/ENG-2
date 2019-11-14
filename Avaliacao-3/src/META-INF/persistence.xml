@@ -4,6 +4,10 @@
 
     <class>Model.Aluno</class>
     <class>Model.Debito</class>
+    <class>Model.Emprestimo</class>
+    <class>Model.Exemplar</class>
+    <class>Model.Item</class>
+    <class>Model.Titulo</class>
     
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

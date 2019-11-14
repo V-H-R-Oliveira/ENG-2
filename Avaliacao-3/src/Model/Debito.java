@@ -25,7 +25,7 @@ public class Debito implements Serializable {
 
     @Column()
     private Double valor;
-    
+
     @Column()
     private boolean estado;
 
@@ -81,7 +81,6 @@ public class Debito implements Serializable {
         return Objects.equals(this.dao, other.dao);
     }
 
-        
     public boolean verificaDebito() {
         return dao.verificaDebito(this.aluno.getRa());
     }

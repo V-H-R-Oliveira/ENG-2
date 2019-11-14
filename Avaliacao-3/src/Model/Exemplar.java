@@ -1,35 +1,108 @@
 package Model;
 
-import Persistense.PersistenciaExemplar;
+import dao.GenericDAO;
+import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
-public class Exemplar 
-{
+@Entity
+public class Exemplar implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column
     private boolean exemplar;
+
+    @ManyToOne
+    @JoinColumn(name = "titulo")
     private Titulo titulo;
+
+    @Column(length = 10)
     private String codigoExemplar;
+
+    @Column(length = 40)
     private String editora;
 
-    private PersistenciaExemplar persistenciaE;
+    @Transient
+    private GenericDAO<Exemplar> dao;
 
-    public Exemplar(boolean exemplar, Titulo titulo, String codigoExemplar, String editora, PersistenciaExemplar persistenciaE) {
+    public Exemplar() {
+        dao = new GenericDAO<>(Exemplar.class);
+    }
+
+    public Exemplar(boolean exemplar, Titulo titulo, String codigoExemplar, String editora) {
         this.exemplar = exemplar;
         this.titulo = titulo;
         this.codigoExemplar = codigoExemplar;
         this.editora = editora;
-        this.persistenciaE = persistenciaE;
     }
 
+    
     public boolean verficaExemplar() 
     {
-        return persistenciaE.persistirExemplar(this);
+        return true;
     }
-
+     
     public boolean isExemplar() {
         return exemplar;
     }
 
-    public void setExemplar(boolean exemplar) {
-        this.exemplar = exemplar;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + (this.exemplar ? 1 : 0);
+        hash = 71 * hash + Objects.hashCode(this.titulo);
+        hash = 71 * hash + Objects.hashCode(this.codigoExemplar);
+        hash = 71 * hash + Objects.hashCode(this.editora);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Exemplar other = (Exemplar) obj;
+        if (this.exemplar != other.exemplar) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoExemplar, other.codigoExemplar)) {
+            return false;
+        }
+        if (!Objects.equals(this.editora, other.editora)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        return true;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Titulo getTitulo() {
@@ -56,11 +129,5 @@ public class Exemplar
         this.editora = editora;
     }
 
-    public PersistenciaExemplar getPersistenciaE() {
-        return persistenciaE;
-    }
 
-    public void setPersistenciaL(PersistenciaExemplar persistenciaE) {
-        this.persistenciaE = persistenciaE;
-    }
 }

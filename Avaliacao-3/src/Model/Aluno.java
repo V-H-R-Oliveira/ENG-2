@@ -17,7 +17,7 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 20)
+    @Column(length = 40)
     private String nome;
 
     @Column(length = 10, unique = true)
