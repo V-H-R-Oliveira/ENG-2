@@ -7,7 +7,6 @@ package View;
 
 public class Menu extends javax.swing.JFrame {
 
-
     public Menu() {
         initComponents();
 
@@ -22,23 +21,55 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botaoCadastrarUsuario = new javax.swing.JButton();
-        botaoCadastrarLivro = new javax.swing.JButton();
+        btnCadastrarTitulo = new javax.swing.JButton();
+        btnCadastrarEmprestimo = new javax.swing.JButton();
+        tituloFrame = new javax.swing.JLabel();
+        btnCadastrarAluno = new javax.swing.JButton();
+        btnCadastrarExemplar = new javax.swing.JButton();
+        btnDebito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
+        setName("Sistema de Biblioteca"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(379, 278));
+        setResizable(false);
+        setSize(new java.awt.Dimension(379, 278));
 
-        botaoCadastrarUsuario.setText("Cadastrar Aluno");
-        botaoCadastrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarTitulo.setText("Cadastrar Título");
+        btnCadastrarTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarUsuarioActionPerformed(evt);
+                btnCadastrarTituloActionPerformed(evt);
             }
         });
 
-        botaoCadastrarLivro.setText("Cadastrar Livro");
-        botaoCadastrarLivro.setActionCommand("Cadastrar Livro");
-        botaoCadastrarLivro.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarEmprestimo.setText("Emprestimos");
+        btnCadastrarEmprestimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarLivroActionPerformed(evt);
+                btnCadastrarEmprestimoActionPerformed(evt);
+            }
+        });
+
+        tituloFrame.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tituloFrame.setText("Sistema de Biblioteca");
+
+        btnCadastrarAluno.setText("Cadastrar Aluno");
+        btnCadastrarAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarAlunoActionPerformed(evt);
+            }
+        });
+
+        btnCadastrarExemplar.setText("Cadastrar Exemplar");
+        btnCadastrarExemplar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarExemplarActionPerformed(evt);
+            }
+        });
+
+        btnDebito.setText("Débitos");
+        btnDebito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDebitoActionPerformed(evt);
             }
         });
 
@@ -47,34 +78,70 @@ public class Menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botaoCadastrarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botaoCadastrarLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(btnCadastrarEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCadastrarExemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCadastrarTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(tituloFrame)))
+                .addGap(91, 91, 91))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
-                .addComponent(botaoCadastrarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(botaoCadastrarLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                .addGap(131, 131, 131))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(tituloFrame)
+                .addGap(21, 21, 21)
+                .addComponent(btnCadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnCadastrarEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnCadastrarExemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnCadastrarTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarUsuarioActionPerformed
-        //telaCadastroUsuario.setVisible(true);
+    private void btnCadastrarTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarTituloActionPerformed
+        CadastrarTitulo telaCadastroTitulo = new CadastrarTitulo(this);
+        telaCadastroTitulo.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_botaoCadastrarUsuarioActionPerformed
+    }//GEN-LAST:event_btnCadastrarTituloActionPerformed
 
-    private void botaoCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarLivroActionPerformed
-        //telaCadastrarLivro.setVisible(true);
+    private void btnCadastrarEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarEmprestimoActionPerformed
+        Emprestimo telaEmprestimo = new Emprestimo(this);
+        telaEmprestimo.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_botaoCadastrarLivroActionPerformed
+    }//GEN-LAST:event_btnCadastrarEmprestimoActionPerformed
+
+    private void btnCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAlunoActionPerformed
+        CadastrarAluno telaCadastroAluno = new CadastrarAluno(this);
+        telaCadastroAluno.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCadastrarAlunoActionPerformed
+
+    private void btnCadastrarExemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarExemplarActionPerformed
+        CadastrarExemplar telaCadastroExemplar = new CadastrarExemplar(this);
+        telaCadastroExemplar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCadastrarExemplarActionPerformed
+
+    private void btnDebitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDebitoActionPerformed
+        Debito telaDebito = new Debito(this);
+        telaDebito.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDebitoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,7 +179,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCadastrarLivro;
-    private javax.swing.JButton botaoCadastrarUsuario;
+    private javax.swing.JButton btnCadastrarAluno;
+    private javax.swing.JButton btnCadastrarEmprestimo;
+    private javax.swing.JButton btnCadastrarExemplar;
+    private javax.swing.JButton btnCadastrarTitulo;
+    private javax.swing.JButton btnDebito;
+    private javax.swing.JLabel tituloFrame;
     // End of variables declaration//GEN-END:variables
 }
