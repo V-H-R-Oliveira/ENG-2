@@ -1,6 +1,5 @@
 package Model;
 
-import dao.GenericDAO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -8,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Entity
 public class Aluno implements Serializable {
@@ -17,26 +15,22 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 40)
+    @Column(length = 40, nullable=false)
     private String nome;
 
-    @Column(length = 10, unique = true)
+    @Column(length = 10, unique =true, nullable=false)
     private String ra;
 
-    @Column(length = 11)
+    @Column(length = 11, unique=true, nullable=false)
     private String cpf;
 
-    @Column(length = 11)
+    @Column(length = 11, nullable=false)
     private String telefone;
 
-    @Column(length = 40)
+    @Column(length = 40, nullable=false)
     private String endereco;
 
-    @Transient
-    private GenericDAO<Aluno> dao;
-
     public Aluno() {
-        dao = new GenericDAO<>(Aluno.class);
     }
 
     public Aluno(String nome, String ra, String cpf, String telefone, String endereco) {
@@ -45,57 +39,6 @@ public class Aluno implements Serializable {
         this.cpf = cpf;
         this.telefone = telefone;
         this.endereco = endereco;
-        dao = new GenericDAO<>(Aluno.class);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.nome);
-        hash = 29 * hash + Objects.hashCode(this.ra);
-        hash = 29 * hash + Objects.hashCode(this.cpf);
-        hash = 29 * hash + Objects.hashCode(this.telefone);
-        hash = 29 * hash + Objects.hashCode(this.endereco);
-        hash = 29 * hash + Objects.hashCode(this.dao);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Aluno other = (Aluno) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.ra, other.ra)) {
-            return false;
-        }
-        if (!Objects.equals(this.cpf, other.cpf)) {
-            return false;
-        }
-        if (!Objects.equals(this.telefone, other.telefone)) {
-            return false;
-        }
-        if (!Objects.equals(this.endereco, other.endereco)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return Objects.equals(this.dao, other.dao);
-    }
-
-    public boolean verificaAluno() {
-        return dao.searchByRA(ra);
     }
 
     public Integer getId() {
@@ -146,12 +89,49 @@ public class Aluno implements Serializable {
         this.endereco = endereco;
     }
 
-    public GenericDAO getDao() {
-        return dao;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.nome);
+        hash = 47 * hash + Objects.hashCode(this.ra);
+        hash = 47 * hash + Objects.hashCode(this.cpf);
+        hash = 47 * hash + Objects.hashCode(this.telefone);
+        hash = 47 * hash + Objects.hashCode(this.endereco);
+        return hash;
     }
 
-    public void setDao(GenericDAO dao) {
-        this.dao = dao;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Aluno other = (Aluno) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.ra, other.ra)) {
+            return false;
+        }
+        if (!Objects.equals(this.cpf, other.cpf)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefone, other.telefone)) {
+            return false;
+        }
+        if (!Objects.equals(this.endereco, other.endereco)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
 }

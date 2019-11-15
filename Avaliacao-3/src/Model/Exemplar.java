@@ -1,6 +1,5 @@
 package Model;
 
-import dao.GenericDAO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 @Entity
 public class Exemplar implements Serializable {
@@ -19,82 +17,36 @@ public class Exemplar implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable=false)
     private boolean exemplar;
 
     @ManyToOne
     @JoinColumn(name = "titulo")
     private Titulo titulo;
 
-    @Column(length = 10)
+    @Column(length = 10, unique = true, nullable=false)
     private String codigoExemplar;
 
-    @Column(length = 40)
+    @Column(nullable=false)
+    private boolean isDisponivel;
+
+    @Column(length = 40, nullable=false)
     private String editora;
 
-    @Transient
-    private GenericDAO<Exemplar> dao;
-
     public Exemplar() {
-        dao = new GenericDAO<>(Exemplar.class);
     }
 
-    public Exemplar(boolean exemplar, Titulo titulo, String codigoExemplar, String editora) {
+    public Exemplar(String codigoExemplar, Titulo titulo, String editora, boolean exemplar) {
         this.exemplar = exemplar;
         this.titulo = titulo;
         this.codigoExemplar = codigoExemplar;
         this.editora = editora;
+        this.isDisponivel = true;
     }
 
-    
-    public boolean verficaExemplar() 
-    {
-        return true;
-    }
-     
+
     public boolean isExemplar() {
         return exemplar;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + (this.exemplar ? 1 : 0);
-        hash = 71 * hash + Objects.hashCode(this.titulo);
-        hash = 71 * hash + Objects.hashCode(this.codigoExemplar);
-        hash = 71 * hash + Objects.hashCode(this.editora);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Exemplar other = (Exemplar) obj;
-        if (this.exemplar != other.exemplar) {
-            return false;
-        }
-        if (!Objects.equals(this.codigoExemplar, other.codigoExemplar)) {
-            return false;
-        }
-        if (!Objects.equals(this.editora, other.editora)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.titulo, other.titulo)) {
-            return false;
-        }
-        return true;
     }
 
     public Integer getId() {
@@ -121,6 +73,14 @@ public class Exemplar implements Serializable {
         this.codigoExemplar = codigoExemplar;
     }
 
+    public boolean isDisponivel() {
+        return isDisponivel;
+    }
+
+    public void setIsDisponivel(boolean isDisponivel) {
+        this.isDisponivel = isDisponivel;
+    }
+
     public String getEditora() {
         return editora;
     }
@@ -129,5 +89,53 @@ public class Exemplar implements Serializable {
         this.editora = editora;
     }
 
+    public void setExemplar(boolean exemplar) {
+        this.exemplar = exemplar;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + (this.exemplar ? 1 : 0);
+        hash = 17 * hash + Objects.hashCode(this.titulo);
+        hash = 17 * hash + Objects.hashCode(this.codigoExemplar);
+        hash = 17 * hash + (this.isDisponivel ? 1 : 0);
+        hash = 17 * hash + Objects.hashCode(this.editora);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Exemplar other = (Exemplar) obj;
+        if (this.exemplar != other.exemplar) {
+            return false;
+        }
+        if (this.isDisponivel != other.isDisponivel) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoExemplar, other.codigoExemplar)) {
+            return false;
+        }
+        if (!Objects.equals(this.editora, other.editora)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        return true;
+    }
 
 }

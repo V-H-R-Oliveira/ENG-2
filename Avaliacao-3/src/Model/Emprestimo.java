@@ -1,6 +1,5 @@
 package Model;
 
-import dao.GenericDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,42 +14,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-
 
 @Entity
-public class Emprestimo implements Serializable{
+public class Emprestimo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @OneToMany
-    @JoinColumn(name = "item")
+
+    @OneToMany(mappedBy = "emprestimo")
     private ArrayList<Item> items;
-    
+
     @ManyToOne
     @JoinColumn(name = "aluno")
     private Aluno aluno;
-    
+
     @Column()
     private Date dataDevolucao;
-    
+
     @Column()
     private Date dataEmprestimo;
 
-        @Transient
-    private GenericDAO<Emprestimo> dao;
-
     public Emprestimo() {
-        dao = new GenericDAO<>(Emprestimo.class);
     }
-    
+
     public Emprestimo(Aluno aluno, Date dataEmprestimo) {
         this.items = new ArrayList<>();
         this.aluno = aluno;
         this.dataEmprestimo = dataEmprestimo;
-    }   
+    }
 
     public void emprestar() {
         // metodo emprestar aqui
@@ -67,39 +59,33 @@ public class Emprestimo implements Serializable{
         if (items.size() < 3) {
             for (Item i : items) {
                 aux = i.getDataDevolucao().getTime();
-                if (aux.compareTo(maior) > 0) maior = aux;
+                if (aux.compareTo(maior) > 0) {
+                    maior = aux;
+                }
             }
         } else {
             for (int i = 0; i < items.size(); i++) {
                 item = items.get(i);
-                System.out.println("Data de devolução: " + item.getDataDevolucao().getTime());
 
                 if (i > 1) {
-                    cont +=1;
-//                    tmp.set(item.getDataDevolucao().get(Calendar.YEAR), item.getDataDevolucao().get(Calendar.MONTH), item.getDataDevolucao().get(Calendar.DAY_OF_MONTH) + 2);
-//                    item.setDataDevolucao(tmp);
-//                    System.out.println("Data + 2: " + item.getDataDevolucao().getTime());
+                    cont++;
                 }
 
                 aux = item.getDataDevolucao().getTime();
                 if (aux.compareTo(maior) > 0) {
                     maior = aux;
-                    
+
                 }
             }
             maior.setDate((maior.getDate() + cont * 2));
-            System.out.println("Somando dias: " + maior);
-           
         }
-        
+
         tmp.setTime(maior);
 
-        for(Item i : items)
-        {
+        for (Item i : items) {
             i.setDataDevolucao(tmp);
-            System.out.println("Data depois de mudar todos para maior: " + i.getDataDevolucao().getTime());
         }
-        
+
         System.out.println("Maior: " + maior);
         this.dataDevolucao = maior;
     }
@@ -146,12 +132,12 @@ public class Emprestimo implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        hash = 83 * hash + Objects.hashCode(this.items);
-        hash = 83 * hash + Objects.hashCode(this.aluno);
-        hash = 83 * hash + Objects.hashCode(this.dataDevolucao);
-        hash = 83 * hash + Objects.hashCode(this.dataEmprestimo);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.items);
+        hash = 97 * hash + Objects.hashCode(this.aluno);
+        hash = 97 * hash + Objects.hashCode(this.dataDevolucao);
+        hash = 97 * hash + Objects.hashCode(this.dataEmprestimo);
         return hash;
     }
 
@@ -184,7 +170,5 @@ public class Emprestimo implements Serializable{
         }
         return true;
     }
-
-
 
 }

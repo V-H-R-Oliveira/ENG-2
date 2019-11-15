@@ -1,11 +1,9 @@
 # Trabalho de ENG 2
 
-Manter sigilo - Este repositório nunca existiu :)
-
 A fazer:
-- Telas;
-- Controlador;
-- Persistência;
-- Empréstimo;
-- Devolução;
-- Controle de débitos e pendências.
+- Controlador Empréstimo;
+- Controlador Item;
+- Corrigir erro do 1:n do Empréstimo/Item;
+- Corrigir o erro de exclusão do AbstractDAO;
+- Linkar os controladores com as telas;
+- Testar a aplicação.

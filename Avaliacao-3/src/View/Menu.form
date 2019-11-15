@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
+      <Point value="[0, 0]"/>
+    </Property>
+    <Property name="name" type="java.lang.String" value="Sistema de Biblioteca" noResource="true"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[379, 278]"/>
+    </Property>
+    <Property name="resizable" type="boolean" value="false"/>
+    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[379, 278]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -23,43 +34,93 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="botaoCadastrarUsuario" max="32767" attributes="0"/>
-                  <Component id="botaoCadastrarLivro" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="110" pref="110" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="btnCadastrarEmprestimo" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="btnCadastrarExemplar" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="btnCadastrarTitulo" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="btnDebito" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="btnCadastrarAluno" alignment="2" min="-2" pref="159" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="98" pref="98" max="-2" attributes="0"/>
+                      <Component id="tituloFrame" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="66" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="105" max="32767" attributes="0"/>
-              <Component id="botaoCadastrarUsuario" pref="30" max="32767" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="botaoCadastrarLivro" pref="30" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
+              <Component id="tituloFrame" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+              <Component id="btnCadastrarAluno" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btnCadastrarEmprestimo" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btnCadastrarExemplar" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btnCadastrarTitulo" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btnDebito" min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="botaoCadastrarUsuario">
+    <Component class="javax.swing.JButton" name="btnCadastrarTitulo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cadastrar T&#xed;tulo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarTituloActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCadastrarEmprestimo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Emprestimos"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarEmprestimoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tituloFrame">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Sistema de Biblioteca"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCadastrarAluno">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cadastrar Aluno"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarUsuarioActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarAlunoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botaoCadastrarLivro">
+    <Component class="javax.swing.JButton" name="btnCadastrarExemplar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastrar Livro"/>
+        <Property name="text" type="java.lang.String" value="Cadastrar Exemplar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarLivroActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarExemplarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnDebito">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="D&#xe9;bitos"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDebitoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

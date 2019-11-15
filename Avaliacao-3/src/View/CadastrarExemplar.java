@@ -1,19 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package View;
 
 import Model.Exemplar;
 import Model.Titulo;
+import View.Menu;
 
+/**
+ *
+ * @author Thiago
+ */
 public class CadastrarExemplar extends javax.swing.JFrame {
 
-    Menu menu;
+    public static Menu menu;
+    private Exemplar exemplar = new Exemplar();
+    private Titulo titulo = new Titulo();
 
     public CadastrarExemplar(Menu menu) {
         initComponents();
         this.menu = menu;
-    }
-
-    private CadastrarExemplar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -25,15 +33,17 @@ public class CadastrarExemplar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        inputISBN = new javax.swing.JTextField();
         botaoCadastrar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        inputNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        inputAutor = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        inputExemplar = new javax.swing.JCheckBox();
+        tituloFrame = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        campoEditora = new javax.swing.JTextField();
+        comboTitulo = new javax.swing.JComboBox<>();
+        comboCodigo = new javax.swing.JComboBox<>();
+        comboCodigo1 = new javax.swing.JComboBox<>();
+        botaoCadastrar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,18 +54,27 @@ public class CadastrarExemplar extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("ISBN:");
+        tituloFrame.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tituloFrame.setText("Cadastrar Exemplar");
 
-        jLabel2.setText("CADASTRAR EXEMPLAR");
+        jLabel5.setText("Título:");
 
-        jLabel3.setText("Nome:");
+        jLabel6.setText("Estado:");
 
-        jLabel4.setText("Autor:");
+        jLabel7.setText("Editora:");
 
-        inputExemplar.setText("Exemplar Biblioteca");
-        inputExemplar.addActionListener(new java.awt.event.ActionListener() {
+        jLabel8.setText("Circulação");
+
+        comboTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        comboCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponível", "Reservado" }));
+
+        comboCodigo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Restrita" }));
+
+        botaoCadastrar1.setText("Voltar");
+        botaoCadastrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputExemplarActionPerformed(evt);
+                botaoCadastrar1ActionPerformed(evt);
             }
         });
 
@@ -66,75 +85,83 @@ public class CadastrarExemplar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel2))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(campoEditora, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(comboTitulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboCodigo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboCodigo1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addComponent(botaoCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(inputAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(inputISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(inputExemplar)))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addGap(44, 44, 44)
+                        .addComponent(tituloFrame)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGap(23, 23, 23)
+                .addComponent(tituloFrame)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel5)
+                    .addComponent(comboTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(inputExemplar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(botaoCadastrar)
-                .addGap(21, 21, 21))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(comboCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(campoEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(comboCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCadastrar)
+                    .addComponent(botaoCadastrar1))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        Exemplar e;
-        /*boolean exemplar = inputISBN;
-        Titulo titulo = inputNome.getText();
-        String codigoExemplar = inputCodigo.getText();
-        String editora = inputEditora.getText();
-        e = new Exemplar (exemplar, titulo, codigoExemplar, editora, pe);
-        e.verficaExemplar();
+        //titulo = (Titulo) comboTitulo.getSelectedItem();
+        exemplar.setTitulo(titulo);
+        exemplar.setEditora(campoEditora.getText());
+        exemplar.setCodigoExemplar(comboCodigo.getSelectedItem().toString());
+        if (comboCodigo1.getSelectedItem().toString().equals("Normal")) {
+            exemplar.setExemplar(false);
+        } else {
+            exemplar.setExemplar(true);
+        }
 
+//        System.out.println(exemplar.getTitulo() + "\n" + exemplar.getEditora() + "\n" + exemplar.getCodigoExemplar() + "\n" + exemplar.getExemplar() + "\n");
         menu.setVisible(true);
-        dispose();*/
+        dispose();
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
-    private void inputExemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputExemplarActionPerformed
+    private void botaoCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrar1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_inputExemplarActionPerformed
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_botaoCadastrar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,20 +200,22 @@ public class CadastrarExemplar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarExemplar().setVisible(true);
+                new CadastrarExemplar(menu).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
-    private javax.swing.JTextField inputAutor;
-    private javax.swing.JCheckBox inputExemplar;
-    private javax.swing.JTextField inputISBN;
-    private javax.swing.JTextField inputNome;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton botaoCadastrar1;
+    private javax.swing.JTextField campoEditora;
+    private javax.swing.JComboBox<String> comboCodigo;
+    private javax.swing.JComboBox<String> comboCodigo1;
+    private javax.swing.JComboBox<String> comboTitulo;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel tituloFrame;
     // End of variables declaration//GEN-END:variables
 }
