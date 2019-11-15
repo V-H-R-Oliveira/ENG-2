@@ -151,7 +151,7 @@ public class CadastrarExemplar extends javax.swing.JFrame {
             exemplar.setExemplar(true);
         }
 
-        System.out.println(exemplar.getTitulo() + "\n" + exemplar.getEditora() + "\n" + exemplar.getCodigoExemplar() + "\n" + exemplar.getExemplar() + "\n");
+//        System.out.println(exemplar.getTitulo() + "\n" + exemplar.getEditora() + "\n" + exemplar.getCodigoExemplar() + "\n" + exemplar.getExemplar() + "\n");
         menu.setVisible(true);
         dispose();
 
