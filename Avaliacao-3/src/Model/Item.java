@@ -12,23 +12,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
+@Table(name = "item")
 public class Item implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "exemplar")
     private Exemplar exemplar;
 
     @ManyToOne
-    @JoinColumn(name = "emprestimo")
     private Emprestimo emprestimo;
 
     @Column
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dataDevolucao;
 
     public Item() {
@@ -39,21 +42,18 @@ public class Item implements Serializable {
         this.emprestimo = emprestimo;
     }
 
-//    public void calculaDataDevolucao() {
-//        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
-//        if (exemplar.verficaExemplar()) // JPA
-//        {
-//            int day = ThreadLocalRandom.current().nextInt(1, 8);
-//            cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH) + day);
-//            this.dataDevolucao = cal;
-//        }
-//    }
+    public void calculaDataDevolucao() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+        int day = ThreadLocalRandom.current().nextInt(1, 8);
+        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH) + day);
+        this.dataDevolucao = cal;
+    }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -84,10 +84,10 @@ public class Item implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.exemplar);
-        hash = 41 * hash + Objects.hashCode(this.emprestimo);
-        hash = 41 * hash + Objects.hashCode(this.dataDevolucao);
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.exemplar);
+        hash = 29 * hash + Objects.hashCode(this.emprestimo);
+        hash = 29 * hash + Objects.hashCode(this.dataDevolucao);
         return hash;
     }
 

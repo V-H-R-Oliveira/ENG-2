@@ -1,12 +1,16 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +36,14 @@ public class Aluno implements Serializable {
 
     @Column(length = 40, nullable = false)
     private String endereco;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
+    @JoinColumn(name = "emprestimo")
+    private List<Emprestimo> emprestimo;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
+    @JoinColumn(name = "debito")
+    private List<Debito> debito;
 
     public Aluno() {
     }
@@ -92,15 +104,33 @@ public class Aluno implements Serializable {
         this.endereco = endereco;
     }
 
+    public List<Emprestimo> getEmprestimo() {
+        return emprestimo;
+    }
+
+    public void setEmprestimo(List<Emprestimo> emprestimo) {
+        this.emprestimo = emprestimo;
+    }
+
+    public List<Debito> getDebito() {
+        return debito;
+    }
+
+    public void setDebito(List<Debito> debito) {
+        this.debito = debito;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.nome);
-        hash = 59 * hash + Objects.hashCode(this.ra);
-        hash = 59 * hash + Objects.hashCode(this.cpf);
-        hash = 59 * hash + Objects.hashCode(this.telefone);
-        hash = 59 * hash + Objects.hashCode(this.endereco);
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.nome);
+        hash = 67 * hash + Objects.hashCode(this.ra);
+        hash = 67 * hash + Objects.hashCode(this.cpf);
+        hash = 67 * hash + Objects.hashCode(this.telefone);
+        hash = 67 * hash + Objects.hashCode(this.endereco);
+        hash = 67 * hash + Objects.hashCode(this.emprestimo);
+        hash = 67 * hash + Objects.hashCode(this.debito);
         return hash;
     }
 
@@ -132,6 +162,12 @@ public class Aluno implements Serializable {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.emprestimo, other.emprestimo)) {
+            return false;
+        }
+        if (!Objects.equals(this.debito, other.debito)) {
             return false;
         }
         return true;

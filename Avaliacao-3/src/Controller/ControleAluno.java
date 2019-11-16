@@ -43,13 +43,4 @@ public class ControleAluno {
         System.out.println("O aluno não se encontra cadastrado");
         return false;
     }
-
-    public DaoAluno getDao() {
-        return dao;
-    }
-
-    public void setDao(DaoAluno dao) {
-        this.dao = dao;
-    }
-
 }

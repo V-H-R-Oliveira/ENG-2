@@ -43,12 +43,4 @@ public class ControleDebito {
         System.out.println("O aluno não possui débito");
         return false;
     }
-
-    public DaoDebito getDao() {
-        return dao;
-    }
-
-    public void setDao(DaoDebito dao) {
-        this.dao = dao;
-    }
 }

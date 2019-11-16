@@ -1,12 +1,16 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +30,10 @@ public class Titulo implements Serializable {
 
     @Column(length = 40, nullable = false)
     private String autor;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "titulo")
+    @JoinColumn(name = "titulo")
+    private List<Exemplar> exemplar;
 
     public Titulo() {
     }
@@ -68,13 +76,22 @@ public class Titulo implements Serializable {
         this.autor = autor;
     }
 
+    public List<Exemplar> getExemplar() {
+        return exemplar;
+    }
+
+    public void setExemplar(List<Exemplar> exemplar) {
+        this.exemplar = exemplar;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.isbn);
-        hash = 97 * hash + Objects.hashCode(this.nome);
-        hash = 97 * hash + Objects.hashCode(this.autor);
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.isbn);
+        hash = 11 * hash + Objects.hashCode(this.nome);
+        hash = 11 * hash + Objects.hashCode(this.autor);
+        hash = 11 * hash + Objects.hashCode(this.exemplar);
         return hash;
     }
 
@@ -100,6 +117,9 @@ public class Titulo implements Serializable {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.exemplar, other.exemplar)) {
             return false;
         }
         return true;

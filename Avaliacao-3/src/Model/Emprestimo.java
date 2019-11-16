@@ -1,48 +1,49 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.TimeZone;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
-@Table(name="emprestimo")
+@Table(name = "emprestimo")
 public class Emprestimo implements Serializable {
 
     @Id
-    @Column(nullable=false)
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "emprestimo")
-    private ArrayList<Item> items;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "emprestimo")
+    private List<Item> items;
 
     @ManyToOne
-    @JoinColumn(name = "aluno")
     private Aluno aluno;
 
     @Column()
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataDevolucao;
 
     @Column()
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataEmprestimo;
 
     public Emprestimo() {
     }
 
     public Emprestimo(Aluno aluno, Date dataEmprestimo) {
-        this.items = new ArrayList<>();
         this.aluno = aluno;
         this.dataEmprestimo = dataEmprestimo;
     }
@@ -101,11 +102,11 @@ public class Emprestimo implements Serializable {
         this.id = id;
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
@@ -135,12 +136,12 @@ public class Emprestimo implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.items);
-        hash = 11 * hash + Objects.hashCode(this.aluno);
-        hash = 11 * hash + Objects.hashCode(this.dataDevolucao);
-        hash = 11 * hash + Objects.hashCode(this.dataEmprestimo);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.items);
+        hash = 97 * hash + Objects.hashCode(this.aluno);
+        hash = 97 * hash + Objects.hashCode(this.dataDevolucao);
+        hash = 97 * hash + Objects.hashCode(this.dataEmprestimo);
         return hash;
     }
 
@@ -173,6 +174,5 @@ public class Emprestimo implements Serializable {
         }
         return true;
     }
-    
-    
+
 }
