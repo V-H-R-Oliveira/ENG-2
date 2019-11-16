@@ -14,7 +14,7 @@ public class DaoTitulo extends AbstractDAO {
         this.manager = this.getManager();
     }
 
-    public boolean searchByIsbn(String isbn) {
+    public Titulo searchByIsbn(String isbn) {
         Titulo aux;
         manager = JPAUtil.getEntityManager();
         String sql = "SELECT t FROM Titulo t WHERE t.isbn = :n";
@@ -23,12 +23,11 @@ public class DaoTitulo extends AbstractDAO {
 
         try {
             aux = query.getSingleResult();
-            return aux != null;
-        } catch (Exception e) {
-            return false;
-        } finally {
             manager.close();
-        }
+            return aux;
+        } catch (Exception e) {
+            manager.close();
+            return null;
+        } 
     }
-
 }

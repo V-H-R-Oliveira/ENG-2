@@ -7,27 +7,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "aluno")
 public class Aluno implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(length = 40, nullable=false)
+    @Column(length = 40, nullable = false)
     private String nome;
 
-    @Column(length = 10, unique =true, nullable=false)
+    @Column(length = 10, unique = true, nullable = false)
     private String ra;
 
-    @Column(length = 11, unique=true, nullable=false)
+    @Column(length = 11, unique = true, nullable = false)
     private String cpf;
 
-    @Column(length = 11, nullable=false)
+    @Column(length = 11, nullable = false)
     private String telefone;
 
-    @Column(length = 40, nullable=false)
+    @Column(length = 40, nullable = false)
     private String endereco;
 
     public Aluno() {
@@ -41,11 +44,11 @@ public class Aluno implements Serializable {
         this.endereco = endereco;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -92,12 +95,12 @@ public class Aluno implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.id);
-        hash = 47 * hash + Objects.hashCode(this.nome);
-        hash = 47 * hash + Objects.hashCode(this.ra);
-        hash = 47 * hash + Objects.hashCode(this.cpf);
-        hash = 47 * hash + Objects.hashCode(this.telefone);
-        hash = 47 * hash + Objects.hashCode(this.endereco);
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.nome);
+        hash = 59 * hash + Objects.hashCode(this.ra);
+        hash = 59 * hash + Objects.hashCode(this.cpf);
+        hash = 59 * hash + Objects.hashCode(this.telefone);
+        hash = 59 * hash + Objects.hashCode(this.endereco);
         return hash;
     }
 

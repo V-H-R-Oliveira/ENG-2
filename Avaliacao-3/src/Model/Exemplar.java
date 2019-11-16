@@ -9,28 +9,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "exemplar")
 public class Exemplar implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private boolean exemplar;
 
     @ManyToOne
     @JoinColumn(name = "titulo")
     private Titulo titulo;
 
-    @Column(length = 10, unique = true, nullable=false)
+    @Column(length = 10, unique = true, nullable = false)
     private String codigoExemplar;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private boolean isDisponivel;
 
-    @Column(length = 40, nullable=false)
+    @Column(length = 40, nullable = false)
     private String editora;
 
     public Exemplar() {
@@ -44,16 +47,15 @@ public class Exemplar implements Serializable {
         this.isDisponivel = true;
     }
 
-
     public boolean isExemplar() {
         return exemplar;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -96,12 +98,12 @@ public class Exemplar implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 17 * hash + Objects.hashCode(this.id);
-        hash = 17 * hash + (this.exemplar ? 1 : 0);
-        hash = 17 * hash + Objects.hashCode(this.titulo);
-        hash = 17 * hash + Objects.hashCode(this.codigoExemplar);
-        hash = 17 * hash + (this.isDisponivel ? 1 : 0);
-        hash = 17 * hash + Objects.hashCode(this.editora);
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + (this.exemplar ? 1 : 0);
+        hash = 59 * hash + Objects.hashCode(this.titulo);
+        hash = 59 * hash + Objects.hashCode(this.codigoExemplar);
+        hash = 59 * hash + (this.isDisponivel ? 1 : 0);
+        hash = 59 * hash + Objects.hashCode(this.editora);
         return hash;
     }
 

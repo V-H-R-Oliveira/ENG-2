@@ -14,13 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="emprestimo")
 public class Emprestimo implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable=false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @OneToMany(mappedBy = "emprestimo")
     private ArrayList<Item> items;
@@ -90,11 +93,11 @@ public class Emprestimo implements Serializable {
         this.dataDevolucao = maior;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -133,11 +136,11 @@ public class Emprestimo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.items);
-        hash = 97 * hash + Objects.hashCode(this.aluno);
-        hash = 97 * hash + Objects.hashCode(this.dataDevolucao);
-        hash = 97 * hash + Objects.hashCode(this.dataEmprestimo);
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.items);
+        hash = 11 * hash + Objects.hashCode(this.aluno);
+        hash = 11 * hash + Objects.hashCode(this.dataDevolucao);
+        hash = 11 * hash + Objects.hashCode(this.dataEmprestimo);
         return hash;
     }
 
@@ -170,5 +173,6 @@ public class Emprestimo implements Serializable {
         }
         return true;
     }
-
+    
+    
 }

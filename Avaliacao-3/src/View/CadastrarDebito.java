@@ -120,7 +120,7 @@ public class CadastrarDebito extends javax.swing.JFrame {
         aluno.setRa(campoRA.getText());
         debito.setAluno(aluno);
         debito.setValor(Double.parseDouble(campoValor.getText()));
-        debito.setEstado(true);
+//        debito.setEstado(true);
 
         System.out.println(debito.getAluno().getNome() + "\n" + debito.getValor() + "\n");
         menu.setVisible(true);

@@ -9,13 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "debito")
 public class Debito implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "aluno")
@@ -24,31 +27,19 @@ public class Debito implements Serializable {
     @Column()
     private Double valor;
 
-    @Column()
-    private boolean estado;
-
     public Debito() {
     }
 
-    public Debito(Aluno aluno, Double valor, boolean estado) {
+    public Debito(Aluno aluno, Double valor) {
         this.aluno = aluno;
         this.valor = valor;
-        this.estado = estado;
     }
 
-    public boolean hasDebito() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,10 +62,9 @@ public class Debito implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.aluno);
-        hash = 29 * hash + Objects.hashCode(this.valor);
-        hash = 29 * hash + (this.estado ? 1 : 0);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.aluno);
+        hash = 89 * hash + Objects.hashCode(this.valor);
         return hash;
     }
 
@@ -90,9 +80,6 @@ public class Debito implements Serializable {
             return false;
         }
         final Debito other = (Debito) obj;
-        if (this.estado != other.estado) {
-            return false;
-        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

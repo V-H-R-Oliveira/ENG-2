@@ -16,19 +16,27 @@ public class ControleAluno {
     }
 
     public boolean excluirAluno(Aluno aluno) {
-        System.out.println("Ia: " + aluno.getId());
-        if (dao.excluir(aluno.getId())) {
-            System.out.println("O aluno foi excluído com sucesso");
-            return true;
-        }
+        Aluno tmp = dao.searchByRA(aluno.getRa());
 
-        System.out.println("O aluno não foi excluído");
-        return false;
+        if (tmp != null) {
+            if (dao.excluir(tmp.getId())) {
+                System.out.println("O aluno foi excluído com sucesso");
+                return true;
+            } else {
+                System.out.println("O aluno não foi excluído");
+                return false;
+            }
+        } else {
+            System.out.println("O aluno não existe");
+            return false;
+        }
     }
 
     public boolean verificarAluno(Aluno aluno) {
-        if (dao.searchByRA(aluno.getRa())) {
-            System.out.println("O aluno se encontra cadastrado");
+        Aluno tmp = dao.searchByRA(aluno.getRa());
+
+        if (tmp != null) {
+            System.out.println("O aluno encontra-se cadastrado");
             return true;
         }
 

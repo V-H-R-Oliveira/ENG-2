@@ -7,21 +7,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "titulo")
 public class Titulo implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(length = 17, unique=true, nullable=false)
+    @Column(length = 17, unique = true, nullable = false)
     private String isbn;
 
-    @Column(length = 40, nullable=false)
+    @Column(length = 40, nullable = false)
     private String nome;
 
-    @Column(length = 40, nullable=false)
+    @Column(length = 40, nullable = false)
     private String autor;
 
     public Titulo() {
@@ -33,11 +36,11 @@ public class Titulo implements Serializable {
         this.autor = autor;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -67,11 +70,11 @@ public class Titulo implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.isbn);
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.autor);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.isbn);
+        hash = 97 * hash + Objects.hashCode(this.nome);
+        hash = 97 * hash + Objects.hashCode(this.autor);
         return hash;
     }
 

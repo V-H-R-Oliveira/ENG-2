@@ -15,7 +15,7 @@ public class DaoDebito extends AbstractDAO {
         this.manager = this.getManager();
     }
 
-    public boolean verificaDebito(Aluno aluno) {
+    public Debito searchByAluno(Aluno aluno) {
         Debito aux;
         manager = JPAUtil.getEntityManager();
         String sql = "SELECT d FROM Debito d WHERE d.aluno.ra = :n";
@@ -24,11 +24,11 @@ public class DaoDebito extends AbstractDAO {
 
         try {
             aux = query.getSingleResult();
-            return aux != null;
-        } catch (Exception e) {
-            return false;
-        } finally {
             manager.close();
+            return aux;
+        } catch (Exception e) {
+            manager.close();
+            return null;
         }
     }
 }

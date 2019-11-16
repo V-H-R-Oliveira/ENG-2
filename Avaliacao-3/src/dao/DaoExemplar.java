@@ -14,7 +14,7 @@ public class DaoExemplar extends AbstractDAO {
         this.manager = this.getManager();
     }
 
-    public boolean searchByExemplar(String codigoExemplar) {
+    public Exemplar searchByExemplar(String codigoExemplar) {
         Exemplar aux;
         manager = JPAUtil.getEntityManager();
         String sql = "SELECT e FROM Exemplar e WHERE e.codigoExemplar = :n AND e.isDisponivel = :x";
@@ -24,11 +24,11 @@ public class DaoExemplar extends AbstractDAO {
 
         try {
             aux = query.getSingleResult();
-            return aux != null;
-        } catch (Exception e) {
-            return false;
-        } finally {
             manager.close();
-        }
+            return aux;
+        } catch (Exception e) {
+            manager.close();
+            return null;
+        } 
     }
 }

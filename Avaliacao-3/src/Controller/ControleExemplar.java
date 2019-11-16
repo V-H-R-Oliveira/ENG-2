@@ -15,15 +15,37 @@ public class ControleExemplar {
         dao.inserir(exemplar);
     }
 
-    public boolean verficaExemplar(Exemplar exemplar) {
-        if (dao.searchByExemplar(exemplar.getCodigoExemplar()) && exemplar.isExemplar()) {
-            System.out.println("O exemplar encontra-se disponível");
-        } else {
-            System.out.println("O exemplar não se econtra disponível");
-            exemplar.setIsDisponivel(false);
+    public boolean excluiExemplar(Exemplar exemplar) {
+        Exemplar tmp = dao.searchByExemplar(exemplar.getCodigoExemplar());
+        
+        if(tmp != null)
+        {
+            if(dao.excluir(tmp.getId()))
+            {
+                System.out.println("O exemplar foi excluído com sucesso");
+                return true;
+            }else {
+                System.out.println("O exemplar não foi excluído");
+                return false;
+            }
+        }else {
+            System.out.println("O exemplar não encontra-se cadastrado");
+            return false;
         }
-
-        return exemplar.isDisponivel();
     }
 
+    public boolean verificaExemplar(Exemplar exemplar) {
+        Exemplar tmp = dao.searchByExemplar(exemplar.getCodigoExemplar());
+
+        if (tmp != null && tmp.isExemplar()) {
+            System.out.println("O exemplar encontra-se disponível e pode ser emprestado");
+            return true;
+        } else if (tmp != null && !tmp.isExemplar()) {
+            System.out.println("O exemplar encontra-se disponível, porém ele é reservado");
+            return false;
+        } else {
+            System.out.println("O exemplar não econtra-se cadastrado");
+            return false;
+        }
+    }
 }

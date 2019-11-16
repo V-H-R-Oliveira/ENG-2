@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this auxlate file, choose Tools | Templates
- * and open the auxlate in the editor.
- */
 package dao;
 
 import Model.Aluno;
@@ -19,7 +14,7 @@ public class DaoAluno extends AbstractDAO {
         this.manager = this.getManager();
     }
 
-    public boolean searchByRA(String ra) {
+    public Aluno searchByRA(String ra) {
         Aluno aux;
         manager = JPAUtil.getEntityManager();
         String sql = "SELECT a FROM Aluno a WHERE a.ra = :n";
@@ -28,11 +23,11 @@ public class DaoAluno extends AbstractDAO {
 
         try {
             aux = query.getSingleResult();
-            return aux != null;
-        } catch (Exception e) {
-            return false;
-        } finally {
             manager.close();
+            return aux;
+        } catch (Exception e) {
+            manager.close();
+            return null;
         }
     }
 }
