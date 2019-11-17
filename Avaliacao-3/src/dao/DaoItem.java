@@ -1,10 +1,8 @@
 package dao;
 
 import Model.Item;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
 import util.JPAUtil;
 
 public class DaoItem extends AbstractDAO {
@@ -34,14 +32,4 @@ public class DaoItem extends AbstractDAO {
             return null;
         }
     }
-    
-    public List<Item> listarItems() {
-        manager = JPAUtil.getEntityManager();
-        CriteriaQuery<Item> query = manager.getCriteriaBuilder().createQuery(Item.class);
-        query.select(query.from(Item.class));
-        List<Item> lista = manager.createQuery(query).getResultList();
-        manager.close();
-        return lista;
-    }
-
 }

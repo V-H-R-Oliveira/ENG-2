@@ -46,10 +46,11 @@ public class Emprestimo implements Serializable {
     public Emprestimo() {
     }
 
-    public Emprestimo(String codigoEmprestimo, Aluno aluno, Date dataEmprestimo) {
+    public Emprestimo(String codigoEmprestimo, Aluno aluno, Date dataEmprestimo, Date dataDevolucao) {
         this.aluno = aluno;
         this.dataEmprestimo = dataEmprestimo;
         this.codigoEmprestimo = codigoEmprestimo;
+        this.dataDevolucao = dataDevolucao;
     }
 
     public void emprestar(List<Item> items) {

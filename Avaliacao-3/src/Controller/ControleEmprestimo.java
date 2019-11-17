@@ -18,13 +18,14 @@ public class ControleEmprestimo {
     }
 
     public void emprestar(Emprestimo emprestimo, List<Item> items) {
-
-        emprestimo.emprestar(items);
-        for (Item i : items) {
-
-            System.out.println("Item: " + i.getCodigoItem() + " Id: " + i.getId() + "data de devolução: " + i.getDataDevolucao().getTime());
-            dao.update(i.getId(), i);
+        Emprestimo aux = dao.searchByCodigoEmp(emprestimo.getCodigoEmprestimo());
+        if (aux != null) {
+            aux.emprestar(items);
+            for (Item i : items) {
+                System.out.println("Item: " + i.getCodigoItem() + " Id: " + i.getId() + "data de devolução: " + i.getDataDevolucao().getTime());
+                dao.update(i.getId(), i);
+            }
+            dao.update(aux.getId(), aux);    
         }
-
     }
 }

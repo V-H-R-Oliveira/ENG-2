@@ -1,8 +1,10 @@
 package dao;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.CriteriaQuery;
 import util.JPAUtil;
 
 public abstract class AbstractDAO<T> implements Serializable {
@@ -64,6 +66,15 @@ public abstract class AbstractDAO<T> implements Serializable {
             manager.close();
             return false;
         }
+    }
+
+    public List<T> listarObjetos() {
+        manager = JPAUtil.getEntityManager();
+        CriteriaQuery<T> query = manager.getCriteriaBuilder().createQuery(classe);
+        query.select(query.from(classe));
+        List<T> lista = manager.createQuery(query).getResultList();
+        manager.close();
+        return lista;
     }
 
     public EntityManager getManager() {
