@@ -5,9 +5,13 @@
  */
 package View;
 
+import Controller.ControleAluno;
 import Model.Aluno;
 import Model.Debito;
 import View.Menu;
+import Controller.ControleDebito;
+import dao.DaoAluno;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,9 +22,17 @@ public class CadastrarDebito extends javax.swing.JFrame {
     public static Menu menu;
     private Aluno aluno = new Aluno();
     private Debito debito = new Debito();
+    private ControleDebito cd = new ControleDebito();
+    private DaoAluno daoAluno = new DaoAluno();
 
     public CadastrarDebito(Menu menu) {
         initComponents();
+        this.menu = menu;
+    }
+    
+        public CadastrarDebito(Menu menu, String ra) {
+        initComponents();
+        campoRA.setText(ra);
         this.menu = menu;
     }
 
@@ -118,13 +130,18 @@ public class CadastrarDebito extends javax.swing.JFrame {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
 
         aluno.setRa(campoRA.getText());
-        debito.setAluno(aluno);
-        debito.setValor(Double.parseDouble(campoValor.getText()));
-//        debito.setEstado(true);
+        if (!cd.ca.verificarAluno(aluno)) {
+           JOptionPane.showMessageDialog(null, "O aluno não encontra-se cadastrado");
+        } else {
+            aluno = daoAluno.searchByRA(aluno.getRa());
+            debito.setAluno(aluno);
+            debito.setValor(Double.parseDouble(campoValor.getText()));
+            cd.inserirDebito(debito);
+            JOptionPane.showMessageDialog(null, "Débito cadastrado");
+            menu.setVisible(true);
+            dispose();
+        }
 
-        System.out.println(debito.getAluno().getNome() + "\n" + debito.getValor() + "\n");
-        menu.setVisible(true);
-        dispose();
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 

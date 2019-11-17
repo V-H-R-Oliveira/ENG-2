@@ -7,6 +7,8 @@ package View;
 
 import Model.Aluno;
 import View.Menu;
+import Controller.ControleAluno;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +18,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
     public static Menu menu;
     private Aluno aluno = new Aluno();
+    public ControleAluno ca = new ControleAluno();
 
     public CadastrarAluno(Menu menu) {
         initComponents();
@@ -153,9 +156,15 @@ public class CadastrarAluno extends javax.swing.JFrame {
         aluno.setTelefone(campoTelefone.getText());
         aluno.setEndereco(campoEndereco.getText());
 
-        System.out.println(aluno.getNome() + "\n" + aluno.getRa() + "\n" + aluno.getCpf() + "\n" + aluno.getTelefone() + "\n" + aluno.getEndereco() + "\n");
-        menu.setVisible(true);
-        dispose();
+        if (ca.verificarAluno(aluno)) {
+            JOptionPane.showMessageDialog(null, "O aluno encontra-se cadastrado");
+        } else {
+            ca.inserirAluno(aluno);
+            JOptionPane.showMessageDialog(null, "O aluno foi cadastrado com sucesso");
+            menu.setVisible(true);
+            dispose();
+        }
+
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 

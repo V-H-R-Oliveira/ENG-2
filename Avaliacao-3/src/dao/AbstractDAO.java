@@ -25,15 +25,34 @@ public abstract class AbstractDAO<T> implements Serializable {
                 tx.commit();
                 manager.close();
             } else {
-                System.out.println("Error ao inserir");
                 manager.close();
             }
 
         } catch (Exception e) {
-            System.out.println("O item não foi inserido");
             manager.close();
         }
     }
+    
+//     public void update(T objeto) {
+//        manager = JPAUtil.getEntityManager();
+//        EntityTransaction tx = manager.getTransaction();
+//        T aux;
+//        
+//        try {
+//            tx.begin();
+//            if (manager.contains(objeto)) {
+//                aux = manager.merge(objeto);
+//                manager.close();
+//                System.out.println("aux: " + aux);
+//                tx.commit();
+//            } else {
+//                manager.close();
+//            }
+//
+//        } catch (Exception e) {
+//            manager.close();
+//        }
+//    }
 
     public boolean excluir(Long id) {
         manager = JPAUtil.getEntityManager();

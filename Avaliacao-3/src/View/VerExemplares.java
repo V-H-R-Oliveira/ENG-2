@@ -5,13 +5,10 @@
  */
 package View;
 
-import Controller.ControleDebito;
-import Model.Aluno;
-import dao.DaoAluno;
-import dao.DaoDebito;
-import java.util.List;
+import Controller.ControleExemplar;
+import dao.DaoExemplar;
+import dao.DaoTitulo;
 import java.util.Vector;
-import javax.persistence.Table;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,13 +16,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Thiago
  */
-public class VerDebitos extends javax.swing.JFrame {
+public class VerExemplares extends javax.swing.JFrame {
 
-    public static Debito debito;
-    private ControleDebito cd = new ControleDebito();
-    private DaoAluno daoAluno = new DaoAluno();
-    private DaoDebito daoDebito = new DaoDebito();
-    String s[] = {"ID:", "RA:", "Valor"};
+    public static View.Exemplar exemplarTela;
+    private ControleExemplar ce = new ControleExemplar();
+    private DaoTitulo daoTitulo = new DaoTitulo();
+    private DaoExemplar daoExemplar = new DaoExemplar();
+    String s[] = {"ID:", "Título", "Editora", "Estado", "Circulação", "Disponibilidade"};
     DefaultTableModel d = new DefaultTableModel(s, 0);
 
     /**
@@ -39,7 +36,7 @@ public class VerDebitos extends javax.swing.JFrame {
 
         tituloFrame = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        comboAlunos = new javax.swing.JComboBox<>();
+        comboISBN = new javax.swing.JComboBox<>();
         botaoVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultadoTable = new javax.swing.JTable();
@@ -49,15 +46,15 @@ public class VerDebitos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tituloFrame.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        tituloFrame.setText("Listar Débitos");
+        tituloFrame.setText("Listar Exemplares");
 
-        jLabel5.setText("RA do aluno:");
+        jLabel5.setText("ISBN");
 
-        comboAlunos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboAlunos.setAutoscrolls(true);
-        comboAlunos.addItemListener(new java.awt.event.ItemListener() {
+        comboISBN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboISBN.setAutoscrolls(true);
+        comboISBN.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboAlunosItemStateChanged(evt);
+                comboISBNItemStateChanged(evt);
             }
         });
 
@@ -73,14 +70,14 @@ public class VerDebitos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID:", "RA:", "Valor"
+                "ID:", "Título", "Editora", "Estado", "Circulação", "Disponibilidade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,25 +112,26 @@ public class VerDebitos extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoAdicionarDebito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botaoExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(15, 15, 15)
-                        .addComponent(comboAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(242, 242, 242)
-                .addComponent(tituloFrame)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(258, 258, 258))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(tituloFrame)
+                        .addGap(217, 217, 217))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(305, 305, 305))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +141,7 @@ public class VerDebitos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(comboAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,9 +151,9 @@ public class VerDebitos extends javax.swing.JFrame {
                         .addComponent(botaoAdicionarDebito)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoExcluir)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(botaoVoltar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -170,11 +168,25 @@ public class VerDebitos extends javax.swing.JFrame {
             d.removeRow(i);
         }
 
-        Vector<Model.Debito> list = daoDebito.searchByAluno(comboAlunos.getSelectedItem().toString());
+        Vector<Model.Exemplar> list = daoExemplar.searchByISBN(comboISBN.getSelectedItem().toString());
 
-        for (Model.Debito i : list) {
-            System.out.println(i.getAluno().getRa().toString() + i.getValor().toString());
-            String aux[] = {i.getId().toString(), i.getAluno().getRa().toString(), i.getValor().toString()};
+        for (Model.Exemplar i : list) {
+
+            String s, s1;
+            if (i.isDisponivel() == true) {
+                s = "Sim";
+
+            } else {
+                s = "Não";
+            }
+            if (i.isExemplar()== true) {
+                s1 = "Restrita";
+
+            } else {
+                s1 = "Normal";
+            }
+            String aux[] = {i.getId().toString(), i.getTitulo().getNome(), i.getEditora(), i.getCodigoExemplar(), s1, s};
+
             d.addRow(aux);
 
         }
@@ -182,25 +194,25 @@ public class VerDebitos extends javax.swing.JFrame {
         resultadoTable.repaint();
     }
 
-    public VerDebitos(Debito debito) {
+    public VerExemplares(View.Exemplar exemplar) {
         initComponents();
-        DefaultComboBoxModel model = new DefaultComboBoxModel(daoAluno.listAll());
-        comboAlunos.setModel(model);
-        this.debito = debito;
+        DefaultComboBoxModel model = new DefaultComboBoxModel(daoTitulo.listAll());
+        comboISBN.setModel(model);
+        this.exemplarTela = exemplar;
         completTable();
 
     }
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
 
-        debito.setVisible(true);
+        exemplarTela.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
     private void botaoAdicionarDebitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarDebitoActionPerformed
-        CadastrarDebito telaCadastrarDebito = new CadastrarDebito(this.debito.menu, comboAlunos.getSelectedItem().toString());
-        telaCadastrarDebito.setVisible(true);
+        CadastrarExemplar telaCadastrarExemplar = new CadastrarExemplar(this.exemplarTela.menu);
+        telaCadastrarExemplar.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_botaoAdicionarDebitoActionPerformed
@@ -210,15 +222,15 @@ public class VerDebitos extends javax.swing.JFrame {
 
         Long id = Long.parseLong((String) resultadoTable.getValueAt(linha, 0));
 
-        cd.excluirDebito(id);
+        ce.excluiExemplar(id);
 
         completTable();
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
-    private void comboAlunosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAlunosItemStateChanged
+    private void comboISBNItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboISBNItemStateChanged
         // TODO add your handling code here:
         completTable();
-    }//GEN-LAST:event_comboAlunosItemStateChanged
+    }//GEN-LAST:event_comboISBNItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -237,14 +249,30 @@ public class VerDebitos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerDebitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerExemplares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerDebitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerExemplares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerDebitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerExemplares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerDebitos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerExemplares.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -265,7 +293,7 @@ public class VerDebitos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerDebitos(debito).setVisible(true);
+                new VerExemplares(exemplarTela).setVisible(true);
 
             }
         });
@@ -275,7 +303,7 @@ public class VerDebitos extends javax.swing.JFrame {
     private javax.swing.JButton botaoAdicionarDebito;
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoVoltar;
-    private javax.swing.JComboBox<String> comboAlunos;
+    private javax.swing.JComboBox<String> comboISBN;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable resultadoTable;

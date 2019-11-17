@@ -32,6 +32,9 @@ public class Emprestimo implements Serializable {
     @ManyToOne
     private Aluno aluno;
 
+    @Column(nullable = false, unique = true, length = 10)
+    private String codigoEmprestimo;
+
     @Column()
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataDevolucao;
@@ -43,22 +46,30 @@ public class Emprestimo implements Serializable {
     public Emprestimo() {
     }
 
-    public Emprestimo(Aluno aluno, Date dataEmprestimo) {
+    public Emprestimo(String codigoEmprestimo, Aluno aluno, Date dataEmprestimo) {
         this.aluno = aluno;
         this.dataEmprestimo = dataEmprestimo;
+        this.codigoEmprestimo = codigoEmprestimo;
     }
 
     public void emprestar() {
-        // metodo emprestar aqui
+        Calendar tmp = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+        this.calculaDataDevolucao();
+        tmp.setTime(this.dataDevolucao);
+
+        for (Item i : items) {
+            System.out.println("Antiga data de devolução: " + i.getDataDevolucao().getTime());
+            i.setDataDevolucao(tmp);
+            System.out.println("Nova data de devolução: " + i.getDataDevolucao().getTime());
+        }
+
     }
 
-    // private
-    public void calculaDataDevolucao() {
+    private void calculaDataDevolucao() {
         Date maior = new Date();
         Date aux;
         Item item;
         Integer cont = 0;
-        Calendar tmp = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
 
         if (items.size() < 3) {
             for (Item i : items) {
@@ -84,13 +95,7 @@ public class Emprestimo implements Serializable {
             maior.setDate((maior.getDate() + cont * 2));
         }
 
-        tmp.setTime(maior);
-
-        for (Item i : items) {
-            i.setDataDevolucao(tmp);
-        }
-
-        System.out.println("Maior: " + maior);
+        System.out.println("Data de devolução: " + maior);
         this.dataDevolucao = maior;
     }
 
@@ -134,14 +139,23 @@ public class Emprestimo implements Serializable {
         this.dataEmprestimo = dataEmprestimo;
     }
 
+    public String getCodigoEmprestimo() {
+        return codigoEmprestimo;
+    }
+
+    public void setCodigoEmprestimo(String codigoEmprestimo) {
+        this.codigoEmprestimo = codigoEmprestimo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.items);
-        hash = 97 * hash + Objects.hashCode(this.aluno);
-        hash = 97 * hash + Objects.hashCode(this.dataDevolucao);
-        hash = 97 * hash + Objects.hashCode(this.dataEmprestimo);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.items);
+        hash = 89 * hash + Objects.hashCode(this.aluno);
+        hash = 89 * hash + Objects.hashCode(this.codigoEmprestimo);
+        hash = 89 * hash + Objects.hashCode(this.dataDevolucao);
+        hash = 89 * hash + Objects.hashCode(this.dataEmprestimo);
         return hash;
     }
 
@@ -157,6 +171,9 @@ public class Emprestimo implements Serializable {
             return false;
         }
         final Emprestimo other = (Emprestimo) obj;
+        if (!Objects.equals(this.codigoEmprestimo, other.codigoEmprestimo)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

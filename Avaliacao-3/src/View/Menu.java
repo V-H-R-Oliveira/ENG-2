@@ -21,24 +21,23 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnCadastrarTitulo = new javax.swing.JButton();
+        btnTitulo = new javax.swing.JButton();
         btnCadastrarEmprestimo = new javax.swing.JButton();
         tituloFrame = new javax.swing.JLabel();
-        btnCadastrarAluno = new javax.swing.JButton();
+        btnAluno = new javax.swing.JButton();
         btnCadastrarExemplar = new javax.swing.JButton();
         btnDebito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
         setName("Sistema de Biblioteca"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(379, 278));
         setResizable(false);
         setSize(new java.awt.Dimension(379, 278));
 
-        btnCadastrarTitulo.setText("Cadastrar Título");
-        btnCadastrarTitulo.addActionListener(new java.awt.event.ActionListener() {
+        btnTitulo.setText("Títulos");
+        btnTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarTituloActionPerformed(evt);
+                btnTituloActionPerformed(evt);
             }
         });
 
@@ -52,14 +51,14 @@ public class Menu extends javax.swing.JFrame {
         tituloFrame.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         tituloFrame.setText("Sistema de Biblioteca");
 
-        btnCadastrarAluno.setText("Cadastrar Aluno");
-        btnCadastrarAluno.addActionListener(new java.awt.event.ActionListener() {
+        btnAluno.setText("Alunos");
+        btnAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarAlunoActionPerformed(evt);
+                btnAlunoActionPerformed(evt);
             }
         });
 
-        btnCadastrarExemplar.setText("Cadastrar Exemplar");
+        btnCadastrarExemplar.setText("Exemplares");
         btnCadastrarExemplar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarExemplarActionPerformed(evt);
@@ -84,9 +83,9 @@ public class Menu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(btnCadastrarEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCadastrarExemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCadastrarTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(tituloFrame)))
@@ -98,13 +97,13 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(tituloFrame)
                 .addGap(21, 21, 21)
-                .addComponent(btnCadastrarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnCadastrarEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnCadastrarExemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnCadastrarTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -113,11 +112,11 @@ public class Menu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarTituloActionPerformed
-        CadastrarTitulo telaCadastroTitulo = new CadastrarTitulo(this);
-        telaCadastroTitulo.setVisible(true);
+    private void btnTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTituloActionPerformed
+        Titulo telaTitulo = new Titulo(this);
+        telaTitulo.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnCadastrarTituloActionPerformed
+    }//GEN-LAST:event_btnTituloActionPerformed
 
     private void btnCadastrarEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarEmprestimoActionPerformed
         Emprestimo telaEmprestimo = new Emprestimo(this);
@@ -125,15 +124,15 @@ public class Menu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarEmprestimoActionPerformed
 
-    private void btnCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAlunoActionPerformed
-        CadastrarAluno telaCadastroAluno = new CadastrarAluno(this);
-        telaCadastroAluno.setVisible(true);
+    private void btnAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlunoActionPerformed
+        View.Aluno telaAluno = new View.Aluno(this);
+        telaAluno.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnCadastrarAlunoActionPerformed
+    }//GEN-LAST:event_btnAlunoActionPerformed
 
     private void btnCadastrarExemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarExemplarActionPerformed
-        CadastrarExemplar telaCadastroExemplar = new CadastrarExemplar(this);
-        telaCadastroExemplar.setVisible(true);
+        View.Exemplar telaExemplar = new View.Exemplar(this);
+        telaExemplar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarExemplarActionPerformed
 
@@ -179,11 +178,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrarAluno;
+    private javax.swing.JButton btnAluno;
     private javax.swing.JButton btnCadastrarEmprestimo;
     private javax.swing.JButton btnCadastrarExemplar;
-    private javax.swing.JButton btnCadastrarTitulo;
     private javax.swing.JButton btnDebito;
+    private javax.swing.JButton btnTitulo;
     private javax.swing.JLabel tituloFrame;
     // End of variables declaration//GEN-END:variables
 }

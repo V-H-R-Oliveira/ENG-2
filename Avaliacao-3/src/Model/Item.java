@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,6 +29,9 @@ public class Item implements Serializable {
     @ManyToOne
     private Emprestimo emprestimo;
 
+    @Column(nullable = false, unique = true, length = 10)
+    private String codigoItem;
+
     @Column
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dataDevolucao;
@@ -37,9 +39,10 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(Exemplar exemplar, Emprestimo emprestimo) {
+    public Item(String codigoItem, Exemplar exemplar, Emprestimo emprestimo) {
         this.exemplar = exemplar;
         this.emprestimo = emprestimo;
+        this.codigoItem = codigoItem;
     }
 
     public void calculaDataDevolucao() {
@@ -81,13 +84,22 @@ public class Item implements Serializable {
         this.dataDevolucao = dataDevolucao;
     }
 
+    public String getCodigoItem() {
+        return codigoItem;
+    }
+
+    public void setCodigoItem(String codigoItem) {
+        this.codigoItem = codigoItem;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.exemplar);
-        hash = 29 * hash + Objects.hashCode(this.emprestimo);
-        hash = 29 * hash + Objects.hashCode(this.dataDevolucao);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.exemplar);
+        hash = 53 * hash + Objects.hashCode(this.emprestimo);
+        hash = 53 * hash + Objects.hashCode(this.codigoItem);
+        hash = 53 * hash + Objects.hashCode(this.dataDevolucao);
         return hash;
     }
 
@@ -103,6 +115,9 @@ public class Item implements Serializable {
             return false;
         }
         final Item other = (Item) obj;
+        if (!Objects.equals(this.codigoItem, other.codigoItem)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

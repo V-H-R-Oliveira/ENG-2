@@ -15,8 +15,8 @@ public class ControleExemplar {
         dao.inserir(exemplar);
     }
 
-    public boolean excluiExemplar(Exemplar exemplar) {
-        Exemplar tmp = dao.searchByExemplar(exemplar.getCodigoExemplar());
+    public boolean excluiExemplar(Long id) {
+        Exemplar tmp = dao.searchByExemplar(id);
         
         if(tmp != null)
         {
@@ -35,7 +35,7 @@ public class ControleExemplar {
     }
 
     public boolean verificaExemplar(Exemplar exemplar) {
-        Exemplar tmp = dao.searchByExemplar(exemplar.getCodigoExemplar());
+        Exemplar tmp = dao.searchByExemplar(exemplar.getId());
 
         if (tmp != null && tmp.isExemplar()) {
             System.out.println("O exemplar encontra-se disponível e pode ser emprestado");

@@ -5,9 +5,14 @@
  */
 package View;
 
+import Controller.ControleExemplar;
 import Model.Exemplar;
 import Model.Titulo;
+import static View.CadastrarAluno.menu;
 import View.Menu;
+import dao.DaoTitulo;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,10 +23,14 @@ public class CadastrarExemplar extends javax.swing.JFrame {
     public static Menu menu;
     private Exemplar exemplar = new Exemplar();
     private Titulo titulo = new Titulo();
+    private DaoTitulo daoTitulo = new DaoTitulo();
+    private ControleExemplar ce = new ControleExemplar();
 
     public CadastrarExemplar(Menu menu) {
         initComponents();
         this.menu = menu;
+        DefaultComboBoxModel model = new DefaultComboBoxModel(daoTitulo.listAll());
+        comboTitulo.setModel(model);
     }
 
     /**
@@ -141,8 +150,9 @@ public class CadastrarExemplar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        //titulo = (Titulo) comboTitulo.getSelectedItem();
-        exemplar.setTitulo(titulo);
+
+        
+        exemplar.setTitulo(daoTitulo.searchByIsbn(comboTitulo.getSelectedItem().toString()));
         exemplar.setEditora(campoEditora.getText());
         exemplar.setCodigoExemplar(comboCodigo.getSelectedItem().toString());
         if (comboCodigo1.getSelectedItem().toString().equals("Normal")) {
@@ -150,10 +160,17 @@ public class CadastrarExemplar extends javax.swing.JFrame {
         } else {
             exemplar.setExemplar(true);
         }
-
-//        System.out.println(exemplar.getTitulo() + "\n" + exemplar.getEditora() + "\n" + exemplar.getCodigoExemplar() + "\n" + exemplar.getExemplar() + "\n");
-        menu.setVisible(true);
-        dispose();
+        exemplar.setIsDisponivel(true);
+        
+        
+        if (ce.verificaExemplar(exemplar)) {
+            JOptionPane.showMessageDialog(null, "O exemplar encontra-se cadastrado");
+        } else {
+            ce.inserirExemplar(exemplar);
+            JOptionPane.showMessageDialog(null, "O exemplar foi cadastrado com sucesso");
+            menu.setVisible(true);
+            dispose();
+        }
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
