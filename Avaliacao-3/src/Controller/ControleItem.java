@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Item;
 import dao.DaoItem;
+import java.util.List;
 
 public class ControleItem {
 
@@ -18,5 +19,11 @@ public class ControleItem {
     public void inserirItem(Item item) {
         dataDevolucao(item);
         dao.inserir(item);
+    }
+    
+    public List listarItems()
+    {
+        List<Item> items = dao.listarItems();
+        return items;
     }
 }

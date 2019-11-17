@@ -36,7 +36,7 @@ public class DaoAluno extends AbstractDAO {
 
     public Vector<String> listAll() {
         Vector<String> aux = new Vector<String>();
-        List<Aluno> tmp = new ArrayList<Aluno>();
+        List<Aluno> tmp = new ArrayList<>();
         manager = JPAUtil.getEntityManager();
         String sql = "SELECT a FROM Aluno a";
         TypedQuery<Aluno> query = manager.createQuery(sql, Aluno.class);
@@ -54,6 +54,5 @@ public class DaoAluno extends AbstractDAO {
 
             return null;
         }
-
     }
 }

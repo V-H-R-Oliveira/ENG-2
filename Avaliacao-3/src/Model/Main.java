@@ -6,7 +6,7 @@ import Controller.ControleExemplar;
 import Controller.ControleItem;
 import Controller.ControleTitulo;
 import java.util.Date;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -22,7 +22,6 @@ public class Main {
         Aluno aluno = new Aluno("Thiago Fernandes Ribeiro", "120160", "08462311900", "43996069321", "Av dos Pinheiros, 220");
         Titulo titulo = new Titulo("978-85-333-0227-3", "As crônicas de um Português", "Vitor Oliveira V");
         Emprestimo emprestimo = new Emprestimo("1234", aluno, hoje);
-        ArrayList<Item> items = new ArrayList<>();
 
         Exemplar exemplar1 = new Exemplar("1234t", titulo, "teste", true);
         Exemplar exemplar2 = new Exemplar("0000x", titulo, "nova", true);
@@ -33,29 +32,19 @@ public class Main {
         controleExemplar.inserirExemplar(exemplar1);
         controleExemplar.inserirExemplar(exemplar2);
         controleExemplar.inserirExemplar(exemplar3);
+        controleEmprestimo.inserirEmprestimo(emprestimo);
 
         Item item1 = new Item("abcd", exemplar1, emprestimo);
         Item item2 = new Item("xyzw", exemplar2, emprestimo);
         Item item3 = new Item("1245", exemplar3, emprestimo);
         Item item4 = new Item("fuck", exemplar1, emprestimo);
-        
-        item1.calculaDataDevolucao();
-        item2.calculaDataDevolucao();
-        item3.calculaDataDevolucao();
-        item4.calculaDataDevolucao();
-        
-        items.add(item1);
-        items.add(item2);
-        items.add(item3);
-        items.add(item4);
-
-        emprestimo.setItems(items);
-
-        emprestimo.emprestar();
-        controleEmprestimo.inserirEmprestimo(emprestimo);
+       
         controleItem.inserirItem(item1);
         controleItem.inserirItem(item2);
         controleItem.inserirItem(item3);
         controleItem.inserirItem(item4);
+        
+        List<Item> items = controleItem.listarItems();
+        controleEmprestimo.emprestar(emprestimo, items);
     }
 }

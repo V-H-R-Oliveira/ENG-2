@@ -52,20 +52,18 @@ public class Emprestimo implements Serializable {
         this.codigoEmprestimo = codigoEmprestimo;
     }
 
-    public void emprestar() {
+    public void emprestar(List<Item> items) {
         Calendar tmp = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
-        this.calculaDataDevolucao();
+        this.calculaDataDevolucao(items);
         tmp.setTime(this.dataDevolucao);
 
         for (Item i : items) {
-            System.out.println("Antiga data de devolução: " + i.getDataDevolucao().getTime());
             i.setDataDevolucao(tmp);
-            System.out.println("Nova data de devolução: " + i.getDataDevolucao().getTime());
         }
 
     }
 
-    private void calculaDataDevolucao() {
+    private void calculaDataDevolucao(List<Item> items) {
         Date maior = new Date();
         Date aux;
         Item item;
