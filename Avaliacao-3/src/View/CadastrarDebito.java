@@ -1,36 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Controller.ControleAluno;
 import Model.Aluno;
 import Model.Debito;
-import View.Menu;
 import Controller.ControleDebito;
-import dao.DaoAluno;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Thiago
- */
 public class CadastrarDebito extends javax.swing.JFrame {
 
     public static Menu menu;
     private Aluno aluno = new Aluno();
     private Debito debito = new Debito();
     private ControleDebito cd = new ControleDebito();
-    private DaoAluno daoAluno = new DaoAluno();
+    private ControleAluno ca = new ControleAluno();
 
     public CadastrarDebito(Menu menu) {
         initComponents();
         this.menu = menu;
     }
-    
-        public CadastrarDebito(Menu menu, String ra) {
+
+    public CadastrarDebito(Menu menu, String ra) {
         initComponents();
         campoRA.setText(ra);
         this.menu = menu;
@@ -130,10 +119,10 @@ public class CadastrarDebito extends javax.swing.JFrame {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
 
         aluno.setRa(campoRA.getText());
-        if (!cd.ca.verificarAluno(aluno)) {
-           JOptionPane.showMessageDialog(null, "O aluno não encontra-se cadastrado");
+        if (!ca.verificarAluno(aluno)) {
+            JOptionPane.showMessageDialog(null, "O aluno não encontra-se cadastrado");
         } else {
-            aluno = daoAluno.searchByRA(aluno.getRa());
+            aluno = ca.BuscaPorRA(aluno.getRa());
             debito.setAluno(aluno);
             debito.setValor(Double.parseDouble(campoValor.getText()));
             cd.inserirDebito(debito);

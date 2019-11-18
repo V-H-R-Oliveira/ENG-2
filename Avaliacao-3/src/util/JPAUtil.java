@@ -5,15 +5,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class JPAUtil {
+
     private static final EntityManagerFactory FACTORY;
-    
-    static{
+
+    static {
         FACTORY = Persistence.createEntityManagerFactory("BibliotecaPU");
     }
-    
-    public static EntityManager getEntityManager(){
+
+    public static EntityManager getEntityManager() {
         return FACTORY.createEntityManager();
     }
-    
-    
+
 }

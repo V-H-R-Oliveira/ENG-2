@@ -86,12 +86,12 @@ public class Titulo implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.isbn);
-        hash = 11 * hash + Objects.hashCode(this.nome);
-        hash = 11 * hash + Objects.hashCode(this.autor);
-        hash = 11 * hash + Objects.hashCode(this.exemplar);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.isbn);
+        hash = 53 * hash + Objects.hashCode(this.nome);
+        hash = 53 * hash + Objects.hashCode(this.autor);
+        hash = 53 * hash + Objects.hashCode(this.exemplar);
         return hash;
     }
 
@@ -124,5 +124,9 @@ public class Titulo implements Serializable {
         }
         return true;
     }
+
+    
+
+    
 
 }

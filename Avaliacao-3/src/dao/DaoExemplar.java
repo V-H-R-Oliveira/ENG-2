@@ -1,7 +1,5 @@
 package dao;
 
-import Model.Aluno;
-import Model.Debito;
 import Model.Exemplar;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +31,9 @@ public class DaoExemplar extends AbstractDAO {
         } catch (Exception e) {
             manager.close();
             return null;
-        } 
+        }
     }
-    
+
     public Vector<Exemplar> searchByISBN(String ra) {
         Vector<Exemplar> aux = new Vector<Exemplar>();
         manager = JPAUtil.getEntityManager();
@@ -52,8 +50,8 @@ public class DaoExemplar extends AbstractDAO {
             return null;
         }
     }
-    
-        public Vector<String> listAll() {
+
+    public Vector<String> listAll() {
         Vector<String> aux = new Vector<String>();
         List<Exemplar> tmp = new ArrayList<Exemplar>();
         manager = JPAUtil.getEntityManager();
@@ -75,4 +73,20 @@ public class DaoExemplar extends AbstractDAO {
         }
 
     }
+
+    public void UpdateDispo(Long id, boolean estado) {
+
+        manager = JPAUtil.getEntityManager();
+        Exemplar aux = manager.find(Exemplar.class, id);
+        try {
+            manager.getTransaction().begin();
+            aux.setIsDisponivel(estado);
+            manager.getTransaction().commit();
+            manager.close();
+            System.out.println("deu");
+        } catch (Exception e) {
+            manager.close();
+        }
+    }
+
 }

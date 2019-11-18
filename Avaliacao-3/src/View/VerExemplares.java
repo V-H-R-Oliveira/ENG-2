@@ -1,27 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Controller.ControleExemplar;
-import dao.DaoExemplar;
-import dao.DaoTitulo;
+import Controller.ControleTitulo;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Thiago
- */
 public class VerExemplares extends javax.swing.JFrame {
 
     public static View.Exemplar exemplarTela;
     private ControleExemplar ce = new ControleExemplar();
-    private DaoTitulo daoTitulo = new DaoTitulo();
-    private DaoExemplar daoExemplar = new DaoExemplar();
+    private ControleTitulo ct = new ControleTitulo();
     String s[] = {"ID:", "Título", "Editora", "Estado", "Circulação", "Disponibilidade"};
     DefaultTableModel d = new DefaultTableModel(s, 0);
 
@@ -161,17 +150,12 @@ public class VerExemplares extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void completTable() {
-        System.out.println(d.getRowCount());
-
         while (d.getRowCount() > 0) {
             int i = 0;
             d.removeRow(i);
         }
-
-        Vector<Model.Exemplar> list = daoExemplar.searchByISBN(comboISBN.getSelectedItem().toString());
-
+        Vector<Model.Exemplar> list = ce.searchByISBN(comboISBN.getSelectedItem().toString());
         for (Model.Exemplar i : list) {
-
             String s, s1;
             if (i.isDisponivel() == true) {
                 s = "Sim";
@@ -179,16 +163,14 @@ public class VerExemplares extends javax.swing.JFrame {
             } else {
                 s = "Não";
             }
-            if (i.isExemplar()== true) {
+            if (i.isExemplar() == true) {
                 s1 = "Restrita";
 
             } else {
                 s1 = "Normal";
             }
             String aux[] = {i.getId().toString(), i.getTitulo().getNome(), i.getEditora(), i.getCodigoExemplar(), s1, s};
-
             d.addRow(aux);
-
         }
         resultadoTable.setModel(d);
         resultadoTable.repaint();
@@ -196,39 +178,31 @@ public class VerExemplares extends javax.swing.JFrame {
 
     public VerExemplares(View.Exemplar exemplar) {
         initComponents();
-        DefaultComboBoxModel model = new DefaultComboBoxModel(daoTitulo.listAll());
+        DefaultComboBoxModel model = new DefaultComboBoxModel(ct.listAll());
         comboISBN.setModel(model);
         this.exemplarTela = exemplar;
         completTable();
-
     }
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-
         exemplarTela.setVisible(true);
         dispose();
-
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
     private void botaoAdicionarDebitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarDebitoActionPerformed
         CadastrarExemplar telaCadastrarExemplar = new CadastrarExemplar(this.exemplarTela.menu);
         telaCadastrarExemplar.setVisible(true);
         dispose();
-
     }//GEN-LAST:event_botaoAdicionarDebitoActionPerformed
 
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
         int linha = resultadoTable.getSelectedRow();
-
         Long id = Long.parseLong((String) resultadoTable.getValueAt(linha, 0));
-
         ce.excluiExemplar(id);
-
         completTable();
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
     private void comboISBNItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboISBNItemStateChanged
-        // TODO add your handling code here:
         completTable();
     }//GEN-LAST:event_comboISBNItemStateChanged
 
@@ -294,7 +268,6 @@ public class VerExemplares extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VerExemplares(exemplarTela).setVisible(true);
-
             }
         });
     }

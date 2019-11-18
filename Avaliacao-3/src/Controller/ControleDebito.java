@@ -4,11 +4,11 @@ import Model.Aluno;
 import Model.Debito;
 import dao.DaoDebito;
 import java.util.List;
+import java.util.Vector;
 
 public class ControleDebito {
 
     private DaoDebito dao;
-    public ControleAluno ca = new ControleAluno();
 
     public ControleDebito() {
         dao = new DaoDebito();
@@ -44,5 +44,13 @@ public class ControleDebito {
 
         System.out.println("O aluno não possui débito");
         return false;
+    }
+
+    public Vector<Debito> searchByAluno(String ra) {
+        return dao.searchByAluno(ra);
+    }
+
+    public void calculaDebito(Debito debito, int dias) {
+        debito.calcularDebito(dias);
     }
 }

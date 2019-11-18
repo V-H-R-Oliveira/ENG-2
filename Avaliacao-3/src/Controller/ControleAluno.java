@@ -2,6 +2,7 @@ package Controller;
 
 import dao.DaoAluno;
 import Model.Aluno;
+import java.util.Vector;
 
 public class ControleAluno {
 
@@ -42,5 +43,21 @@ public class ControleAluno {
 
         System.out.println("O aluno não se encontra cadastrado");
         return false;
+    }
+
+    public Aluno BuscaPorRA(String ra) {
+        Aluno tmp = dao.searchByRA(ra);
+
+        if (tmp != null) {
+            System.out.println("O aluno encontra-se cadastrado");
+            return tmp;
+        }
+
+        System.out.println("O aluno não se encontra cadastrado");
+        return null;
+    }
+
+    public Vector<String> listAll() {
+        return dao.listAll();
     }
 }

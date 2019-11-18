@@ -1,21 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
-import javax.persistence.Table;
+import Controller.ControleAluno;
+import Controller.ControleEmprestimo;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Thiago
- */
 public class VerEmprestimo extends javax.swing.JFrame {
 
-    public static Emprestimo emprestimo;
-    String s[] = {"RA:", "Valor", "Estado"};
+    public static Emprestimo emprestimoTela;
+    public ControleEmprestimo ce = new ControleEmprestimo();
+    private ControleAluno ca = new ControleAluno();
+    String s[] = {"ID:", "Nome:", "Data devolução"};
     DefaultTableModel d = new DefaultTableModel(s, 0);
 
     /**
@@ -27,29 +24,29 @@ public class VerEmprestimo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botaoPesquisar = new javax.swing.JButton();
         tituloFrame = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        comboTitulo = new javax.swing.JComboBox<>();
+        comboAlunos = new javax.swing.JComboBox<>();
         botaoVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultadoTable = new javax.swing.JTable();
+        botaoAdicionarTitulo = new javax.swing.JButton();
+        botaoDevolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        botaoPesquisar.setText("Pesquisar");
-        botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisarActionPerformed(evt);
-            }
-        });
-
         tituloFrame.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        tituloFrame.setText("Listar Emprestimos");
+        tituloFrame.setText("Listar Empréstimos");
 
         jLabel5.setText("RA do aluno:");
 
-        comboTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboAlunos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboAlunos.setAutoscrolls(true);
+        comboAlunos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboAlunosItemStateChanged(evt);
+            }
+        });
 
         botaoVoltar.setText("Voltar");
         botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -60,41 +57,70 @@ public class VerEmprestimo extends javax.swing.JFrame {
 
         resultadoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "ID:", "RA:", "Valor"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(resultadoTable);
+
+        botaoAdicionarTitulo.setText("Adicionar");
+        botaoAdicionarTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarTituloActionPerformed(evt);
+            }
+        });
+
+        botaoDevolver.setText("Devolver");
+        botaoDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoDevolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(tituloFrame)
-                .addGap(161, 161, 161))
             .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(15, 15, 15)
-                                .addComponent(comboTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botaoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoAdicionarTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoDevolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(jLabel5)
+                        .addGap(15, 15, 15)
+                        .addComponent(comboAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(15, 15, 15))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(242, 242, 242)
+                .addComponent(tituloFrame)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(258, 258, 258))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,41 +130,81 @@ public class VerEmprestimo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(comboTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(botaoAdicionarTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoDevolver)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoVoltar)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
+    public void completTable() {
+        System.out.println(d.getRowCount());
 
-        //for (int i = 0; i < b.getAtbValues().size(); i++) {
-        Object v[] = {"120160", "20.5", "True"};
-        d.addRow(v);
-        //}*/
+        while (d.getRowCount() > 0) {
+            int i = 0;
+            d.removeRow(i);
+        }
+
+        Vector<Model.Emprestimo> list = ce.searchByAluno(comboAlunos.getSelectedItem().toString());
+
+        for (Model.Emprestimo i : list) {
+            String aux[] = {i.getId().toString(), i.getAluno().getNome(), i.getDataDevolucao().toString()};
+            d.addRow(aux);
+
+        }
         resultadoTable.setModel(d);
-    }//GEN-LAST:event_botaoPesquisarActionPerformed
+        resultadoTable.repaint();
+    }
 
-    public VerEmprestimo(Emprestimo emprestimo) {
+    public VerEmprestimo(Emprestimo emprestimoTela) {
         initComponents();
+        DefaultComboBoxModel model = new DefaultComboBoxModel(ca.listAll());
+        comboAlunos.setModel(model);
+        this.emprestimoTela = emprestimoTela;
+        completTable();
 
-        resultadoTable = new javax.swing.JTable();
-        this.emprestimo = emprestimo;
     }
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
 
-        emprestimo.setVisible(true);
+        emprestimoTela.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_botaoVoltarActionPerformed
+
+    private void botaoAdicionarTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarTituloActionPerformed
+        CadastrarEmprestimo telaCadastrarEmprestimo = new CadastrarEmprestimo(this.emprestimoTela);
+        telaCadastrarEmprestimo.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_botaoAdicionarTituloActionPerformed
+
+    private void botaoDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDevolverActionPerformed
+        int linha = resultadoTable.getSelectedRow();
+
+        Long id = Long.parseLong((String) resultadoTable.getValueAt(linha, 0));
+        
+        ce.devolucao(ce.searchByID(id));
+        JOptionPane.showMessageDialog(null, "Exemplares devolvidos com sucesso");
+
+        completTable();
+    }//GEN-LAST:event_botaoDevolverActionPerformed
+
+    private void comboAlunosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAlunosItemStateChanged
+        completTable();
+    }//GEN-LAST:event_comboAlunosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -197,19 +263,52 @@ public class VerEmprestimo extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerEmprestimo(emprestimo).setVisible(true);
+                new VerEmprestimo(emprestimoTela).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoPesquisar;
+    private javax.swing.JButton botaoAdicionarTitulo;
+    private javax.swing.JButton botaoDevolver;
     private javax.swing.JButton botaoVoltar;
-    private javax.swing.JComboBox<String> comboTitulo;
+    private javax.swing.JComboBox<String> comboAlunos;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable resultadoTable;

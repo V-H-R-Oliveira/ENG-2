@@ -1,35 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Controller.ControleExemplar;
+import Controller.ControleTitulo;
 import Model.Exemplar;
 import Model.Titulo;
-import static View.CadastrarAluno.menu;
-import View.Menu;
-import dao.DaoTitulo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Thiago
- */
 public class CadastrarExemplar extends javax.swing.JFrame {
 
     public static Menu menu;
     private Exemplar exemplar = new Exemplar();
     private Titulo titulo = new Titulo();
-    private DaoTitulo daoTitulo = new DaoTitulo();
     private ControleExemplar ce = new ControleExemplar();
+    private ControleTitulo ct = new ControleTitulo();
 
     public CadastrarExemplar(Menu menu) {
         initComponents();
         this.menu = menu;
-        DefaultComboBoxModel model = new DefaultComboBoxModel(daoTitulo.listAll());
+        DefaultComboBoxModel model = new DefaultComboBoxModel(ct.listAll());
         comboTitulo.setModel(model);
     }
 
@@ -50,9 +39,9 @@ public class CadastrarExemplar extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         campoEditora = new javax.swing.JTextField();
         comboTitulo = new javax.swing.JComboBox<>();
-        comboCodigo = new javax.swing.JComboBox<>();
         comboCodigo1 = new javax.swing.JComboBox<>();
         botaoCadastrar1 = new javax.swing.JButton();
+        campoCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,15 +57,13 @@ public class CadastrarExemplar extends javax.swing.JFrame {
 
         jLabel5.setText("Título:");
 
-        jLabel6.setText("Estado:");
+        jLabel6.setText("Codigo:");
 
         jLabel7.setText("Editora:");
 
         jLabel8.setText("Circulação");
 
         comboTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        comboCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponível", "Reservado" }));
 
         comboCodigo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Restrita" }));
 
@@ -106,11 +93,11 @@ public class CadastrarExemplar extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(campoEditora, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                                     .addComponent(comboTitulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboCodigo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboCodigo1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(comboCodigo1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(campoCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                                 .addComponent(botaoCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -129,7 +116,7 @@ public class CadastrarExemplar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(comboCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -138,7 +125,7 @@ public class CadastrarExemplar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(comboCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCadastrar)
                     .addComponent(botaoCadastrar1))
@@ -151,18 +138,16 @@ public class CadastrarExemplar extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
 
-        
-        exemplar.setTitulo(daoTitulo.searchByIsbn(comboTitulo.getSelectedItem().toString()));
+        exemplar.setTitulo(ct.searchByIsbn(comboTitulo.getSelectedItem().toString()));
         exemplar.setEditora(campoEditora.getText());
-        exemplar.setCodigoExemplar(comboCodigo.getSelectedItem().toString());
+        exemplar.setCodigoExemplar(campoCodigo.getText());
         if (comboCodigo1.getSelectedItem().toString().equals("Normal")) {
             exemplar.setExemplar(false);
         } else {
             exemplar.setExemplar(true);
         }
         exemplar.setIsDisponivel(true);
-        
-        
+
         if (ce.verificaExemplar(exemplar)) {
             JOptionPane.showMessageDialog(null, "O exemplar encontra-se cadastrado");
         } else {
@@ -225,8 +210,8 @@ public class CadastrarExemplar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCadastrar1;
+    private javax.swing.JTextField campoCodigo;
     private javax.swing.JTextField campoEditora;
-    private javax.swing.JComboBox<String> comboCodigo;
     private javax.swing.JComboBox<String> comboCodigo1;
     private javax.swing.JComboBox<String> comboTitulo;
     private javax.swing.JLabel jLabel5;

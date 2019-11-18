@@ -33,6 +33,10 @@ public class Debito implements Serializable {
         this.valor = valor;
     }
 
+        public void calcularDebito(int dias) {
+        Double taxa = 1.3;
+        this.valor = (taxa * dias);
+    }
     public Long getId() {
         return id;
     }

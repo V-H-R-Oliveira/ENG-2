@@ -1,7 +1,5 @@
 package dao;
 
-import Model.Aluno;
-import Model.Debito;
 import Model.Titulo;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,8 +90,8 @@ public class DaoTitulo extends AbstractDAO {
         }
 
     }
-    
-        public Vector<Titulo> listAllT() {
+
+    public Vector<Titulo> listAllT() {
         Vector<Titulo> aux = new Vector<Titulo>();
         List<Titulo> tmp = new ArrayList<Titulo>();
         manager = JPAUtil.getEntityManager();

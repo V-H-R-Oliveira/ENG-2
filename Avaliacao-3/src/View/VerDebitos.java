@@ -1,30 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
+import Controller.ControleAluno;
 import Controller.ControleDebito;
-import Model.Aluno;
-import dao.DaoAluno;
-import dao.DaoDebito;
-import java.util.List;
 import java.util.Vector;
-import javax.persistence.Table;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Thiago
- */
 public class VerDebitos extends javax.swing.JFrame {
 
     public static Debito debito;
-    private ControleDebito cd = new ControleDebito();
-    private DaoAluno daoAluno = new DaoAluno();
-    private DaoDebito daoDebito = new DaoDebito();
+    public ControleDebito cd = new ControleDebito();
+    private ControleAluno ca = new ControleAluno();
     String s[] = {"ID:", "RA:", "Valor"};
     DefaultTableModel d = new DefaultTableModel(s, 0);
 
@@ -170,10 +156,9 @@ public class VerDebitos extends javax.swing.JFrame {
             d.removeRow(i);
         }
 
-        Vector<Model.Debito> list = daoDebito.searchByAluno(comboAlunos.getSelectedItem().toString());
+        Vector<Model.Debito> list = cd.searchByAluno(comboAlunos.getSelectedItem().toString());
 
         for (Model.Debito i : list) {
-            System.out.println(i.getAluno().getRa().toString() + i.getValor().toString());
             String aux[] = {i.getId().toString(), i.getAluno().getRa().toString(), i.getValor().toString()};
             d.addRow(aux);
 
@@ -184,7 +169,7 @@ public class VerDebitos extends javax.swing.JFrame {
 
     public VerDebitos(Debito debito) {
         initComponents();
-        DefaultComboBoxModel model = new DefaultComboBoxModel(daoAluno.listAll());
+        DefaultComboBoxModel model = new DefaultComboBoxModel(ca.listAll());
         comboAlunos.setModel(model);
         this.debito = debito;
         completTable();
@@ -216,7 +201,6 @@ public class VerDebitos extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
     private void comboAlunosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAlunosItemStateChanged
-        // TODO add your handling code here:
         completTable();
     }//GEN-LAST:event_comboAlunosItemStateChanged
 
@@ -266,7 +250,6 @@ public class VerDebitos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VerDebitos(debito).setVisible(true);
-
             }
         });
     }

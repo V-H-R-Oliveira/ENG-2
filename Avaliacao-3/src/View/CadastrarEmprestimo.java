@@ -1,20 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
-import javax.persistence.Table;
+import Controller.ControleAluno;
+import Controller.ControleEmprestimo;
+import Controller.ControleExemplar;
+import Controller.ControleItem;
+import Controller.ControleTitulo;
+import Model.Emprestimo;
+import Model.Item;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Random;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Thiago
- */
 public class CadastrarEmprestimo extends javax.swing.JFrame {
 
-    public static Emprestimo emprestimo;
+    public static View.Emprestimo emprestimoTela;
+    private ControleExemplar ce = new ControleExemplar();
+    private ControleItem ci = new ControleItem();
+    private ControleEmprestimo cem = new ControleEmprestimo();
+    private ControleAluno ca = new ControleAluno();
+    private ControleTitulo ct = new ControleTitulo();
+
+    private Model.Emprestimo novoEmprestimo;
+    private Model.Aluno aluno = new Model.Aluno();
+    private Model.Item item;
+
+    private Vector<Model.Exemplar> emprestar = new Vector<Model.Exemplar>();
+    private Vector<Model.Exemplar> listDispo = new Vector<Model.Exemplar>();
+    private Vector<Model.Exemplar> listEmprestados = new Vector<Model.Exemplar>();
+    private Vector<Model.Item> items = new Vector<Model.Item>();
+    private Model.Exemplar auxiliar = new Model.Exemplar();
+
+    String s[] = {"ID:", "Título"};
+    DefaultTableModel d = new DefaultTableModel(s, 0);
+    String s1[] = {"ID:", "Título"};
+    DefaultTableModel d2 = new DefaultTableModel(s1, 0);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -25,33 +49,45 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botaoPesquisar = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        botaoAdicionar = new javax.swing.JButton();
         tituloFrame = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        comboTitulo = new javax.swing.JComboBox<>();
+        comboISBN = new javax.swing.JComboBox<>();
         botaoVoltar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        botaoPesquisar1 = new javax.swing.JButton();
-        botaoVoltar1 = new javax.swing.JButton();
+        botaoRemover = new javax.swing.JButton();
+        botaoCadastrar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        comboTitulo1 = new javax.swing.JComboBox<>();
+        comboAlunos = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultadoTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        resultadoTable = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+
+        jScrollPane4.setViewportView(jTree1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        botaoPesquisar.setText("Adicionar");
-        botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        botaoAdicionar.setText("Adicionar");
+        botaoAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisarActionPerformed(evt);
+                botaoAdicionarActionPerformed(evt);
             }
         });
 
         tituloFrame.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         tituloFrame.setText("Cadastrar Empréstimo");
 
-        jLabel5.setText("Exemplar:");
+        jLabel5.setText("ISBN:");
 
-        comboTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboISBN.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboISBNItemStateChanged(evt);
+            }
+        });
 
         botaoVoltar.setText("Voltar");
         botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -60,117 +96,286 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList1);
-
-        botaoPesquisar1.setText("Remover");
-        botaoPesquisar1.addActionListener(new java.awt.event.ActionListener() {
+        botaoRemover.setText("Remover");
+        botaoRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPesquisar1ActionPerformed(evt);
+                botaoRemoverActionPerformed(evt);
             }
         });
 
-        botaoVoltar1.setText("Cadastrar");
-        botaoVoltar1.addActionListener(new java.awt.event.ActionListener() {
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoVoltar1ActionPerformed(evt);
+                botaoCadastrarActionPerformed(evt);
             }
         });
 
         jLabel6.setText("RA do aluno:");
 
-        comboTitulo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        resultadoTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Emprestados"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(resultadoTable2);
+
+        resultadoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Exemplares"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(resultadoTable);
+
+        jLabel7.setText("Exemplares Disponíveis:");
+
+        jLabel8.setText("Exemplares Emprestados:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botaoVoltar1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(175, 175, 175)
-                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(207, 207, 207)
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(28, 28, 28)
-                                .addComponent(comboTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(15, 15, 15)
-                                .addComponent(comboTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboISBN, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboAlunos, 0, 368, Short.MAX_VALUE))
+                        .addGap(145, 145, 145))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoPesquisar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botaoPesquisar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(21, 21, 21))
+                            .addComponent(botaoRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
-                .addGap(191, 191, 191)
+                .addGap(280, 280, 280)
                 .addComponent(tituloFrame)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(68, 68, 68))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addComponent(tituloFrame)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(comboTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(comboTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoPesquisar))
+                    .addComponent(comboISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoPesquisar1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoVoltar1)
-                    .addComponent(botaoVoltar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botaoAdicionar)
+                        .addGap(21, 21, 21)
+                        .addComponent(botaoRemover))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
+    private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
+        int linha = resultadoTable.getSelectedRow();
 
-    }//GEN-LAST:event_botaoPesquisarActionPerformed
+        Long id = Long.parseLong((String) resultadoTable.getValueAt(linha, 0));
 
-    public CadastrarEmprestimo(Emprestimo emprestimo) {
+        ce.updateDisponibilidade(id, false);
+        emprestar.add(ce.searchByExemplar(id));
+
+        for (Model.Exemplar i : emprestar) {
+            String aux[] = {i.getId().toString(), i.getTitulo().getNome()};
+
+            d2.addRow(aux);
+        }
+
+        completTable1(resultadoTable, d);
+        completTable2(resultadoTable2, d2);
+    }//GEN-LAST:event_botaoAdicionarActionPerformed
+
+    public void completTable1(JTable t, DefaultTableModel dtm) {
+
+        while (dtm.getRowCount() > 0) {
+            int i = 0;
+            dtm.removeRow(i);
+        }
+
+        Vector<Model.Exemplar> list = ce.searchByISBN(comboISBN.getSelectedItem().toString());
+
+        listDispo.removeAllElements();
+
+        for (Model.Exemplar i : list) {
+            if (i.isDisponivel() == true) {
+                listDispo.add(i);
+            }
+        }
+
+        for (Model.Exemplar i : listDispo) {
+            String aux[] = {i.getId().toString(), i.getTitulo().getNome()};
+
+            dtm.addRow(aux);
+
+        }
+        t.setModel(dtm);
+        t.repaint();
+    }
+
+    public void completTable2(JTable t, DefaultTableModel dtm) {
+
+        while (dtm.getRowCount() > 0) {
+            int i = 0;
+            dtm.removeRow(i);
+        }
+
+        listEmprestados.removeAllElements();
+
+        for (Model.Exemplar i : emprestar) {
+            if (i.isDisponivel() == false) {
+                listEmprestados.add(i);
+            }
+        }
+
+        emprestar.removeAllElements();
+
+        for (Model.Exemplar i : listEmprestados) {
+            emprestar.add(i);
+            String aux[] = {i.getId().toString(), i.getTitulo().getNome()};
+
+            dtm.addRow(aux);
+
+        }
+        t.setModel(dtm);
+        t.repaint();
+    }
+
+    public CadastrarEmprestimo(View.Emprestimo emprestimo) {
         initComponents();
-        this.emprestimo = emprestimo;
+        this.emprestimoTela = emprestimo;
+        DefaultComboBoxModel model1 = new DefaultComboBoxModel(ca.listAll());
+        comboAlunos.setModel(model1);
+        DefaultComboBoxModel model = new DefaultComboBoxModel(ct.listAll());
+        comboISBN.setModel(model);
+        completTable1(resultadoTable, d);
+        completTable2(resultadoTable2, d2);
 
     }
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-
-        emprestimo.setVisible(true);
+        emprestimoTela.setVisible(true);
         dispose();
-
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
-    private void botaoPesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoPesquisar1ActionPerformed
+    private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
+        int linha = resultadoTable2.getSelectedRow();
 
-    private void botaoVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar1ActionPerformed
+        Long id = Long.parseLong((String) resultadoTable2.getValueAt(linha, 0));
+        System.out.println("id linha selecionada " + id);
+
+        ce.updateDisponibilidade(id, true);
+        auxiliar = ce.searchByExemplar(id);
+        emprestar.set(linha, auxiliar);
+
+        completTable1(resultadoTable, d);
+        completTable2(resultadoTable2, d2);
+    }//GEN-LAST:event_botaoRemoverActionPerformed
+
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botaoVoltar1ActionPerformed
+        Date hoje = new Date();
+        Random random = new Random();
+        items.removeAllElements();
+
+        String cod = new BigInteger(10, random).toString(32);
+
+        novoEmprestimo = new Emprestimo(cod, ca.BuscaPorRA(comboAlunos.getSelectedItem().toString()), hoje, hoje);
+        cem.inserirEmprestimo(novoEmprestimo);
+
+        for (Model.Exemplar i : emprestar) {
+            cod = new BigInteger(10, random).toString(32);
+            item = new Item(cod, i, novoEmprestimo);
+            items.add(item);
+            ci.inserirItem(item);
+        }
+
+        cem.emprestar(novoEmprestimo, items);
+        JOptionPane.showMessageDialog(null, "Emprestimo realizado com sucesso");
+        emprestimoTela.setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
+
+    private void comboISBNItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboISBNItemStateChanged
+        // TODO add your handling code here:
+        completTable1(resultadoTable, d);
+    }//GEN-LAST:event_comboISBNItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -233,22 +438,29 @@ public class CadastrarEmprestimo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarEmprestimo(emprestimo).setVisible(true);
+                new CadastrarEmprestimo(emprestimoTela).setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoPesquisar;
-    private javax.swing.JButton botaoPesquisar1;
+    private javax.swing.JButton botaoAdicionar;
+    private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoRemover;
     private javax.swing.JButton botaoVoltar;
-    private javax.swing.JButton botaoVoltar1;
-    private javax.swing.JComboBox<String> comboTitulo;
-    private javax.swing.JComboBox<String> comboTitulo1;
+    private javax.swing.JComboBox<String> comboAlunos;
+    private javax.swing.JComboBox<String> comboISBN;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTree jTree1;
+    private javax.swing.JTable resultadoTable;
+    private javax.swing.JTable resultadoTable2;
     private javax.swing.JLabel tituloFrame;
     // End of variables declaration//GEN-END:variables
 }

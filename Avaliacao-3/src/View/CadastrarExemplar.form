@@ -39,8 +39,8 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="campoEditora" pref="130" max="32767" attributes="0"/>
                                   <Component id="comboTitulo" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="comboCodigo" alignment="0" max="32767" attributes="0"/>
                                   <Component id="comboCodigo1" max="32767" attributes="0"/>
+                                  <Component id="campoCodigo" alignment="0" pref="130" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -72,7 +72,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="campoCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -84,7 +84,7 @@
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboCodigo1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botaoCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoCadastrar1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -118,7 +118,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Estado:"/>
+        <Property name="text" type="java.lang.String" value="Codigo:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -148,19 +148,6 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboCodigo">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Dispon&#xed;vel"/>
-            <StringItem index="1" value="Reservado"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JComboBox" name="comboCodigo1">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -181,6 +168,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrar1ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="campoCodigo">
     </Component>
   </SubComponents>
 </Form>

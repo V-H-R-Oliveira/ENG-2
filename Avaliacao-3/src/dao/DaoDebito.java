@@ -15,8 +15,6 @@ public class DaoDebito extends AbstractDAO {
         this.manager = this.getManager();
     }
 
-  
-
     public Debito searchByID(Long id) {
         Debito aux;
         manager = JPAUtil.getEntityManager();
@@ -50,4 +48,6 @@ public class DaoDebito extends AbstractDAO {
             return null;
         }
     }
+    
+    
 }

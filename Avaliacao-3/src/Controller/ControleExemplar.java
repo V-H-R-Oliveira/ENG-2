@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Exemplar;
 import dao.DaoExemplar;
+import java.util.Vector;
 
 public class ControleExemplar {
 
@@ -15,20 +16,22 @@ public class ControleExemplar {
         dao.inserir(exemplar);
     }
 
+    public void update(Exemplar exemplar) {
+        dao.update(exemplar.getId(), exemplar);
+    }
+
     public boolean excluiExemplar(Long id) {
         Exemplar tmp = dao.searchByExemplar(id);
-        
-        if(tmp != null)
-        {
-            if(dao.excluir(tmp.getId()))
-            {
+
+        if (tmp != null) {
+            if (dao.excluir(tmp.getId())) {
                 System.out.println("O exemplar foi excluído com sucesso");
                 return true;
-            }else {
+            } else {
                 System.out.println("O exemplar não foi excluído");
                 return false;
             }
-        }else {
+        } else {
             System.out.println("O exemplar não encontra-se cadastrado");
             return false;
         }
@@ -48,4 +51,17 @@ public class ControleExemplar {
             return false;
         }
     }
+
+    public void updateDisponibilidade(Long id, boolean estado) {
+        dao.UpdateDispo(id, estado);
+    }
+
+    public Vector<Exemplar> searchByISBN(String isbn) {
+        return dao.searchByISBN(isbn);
+    }
+
+    public Exemplar searchByExemplar(Long id) {
+        return dao.searchByExemplar(id);
+    }
+
 }

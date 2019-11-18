@@ -1,27 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Controller.ControleTitulo;
-import dao.DaoTitulo;
 import java.util.Vector;
-import static View.ExcluirAluno.alunoTela;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Thiago
- */
 public class VerTitulos extends javax.swing.JFrame {
 
     public static View.Titulo tituloTela;
     private ControleTitulo ct = new ControleTitulo();
-    private DaoTitulo daoTitulo = new DaoTitulo();
     String s[] = {"ID:", "ISBN", "Nome", "Autor"};
     DefaultTableModel d = new DefaultTableModel(s, 0);
 
@@ -144,10 +132,10 @@ public class VerTitulos extends javax.swing.JFrame {
             d.removeRow(i);
         }
 
-        Vector<Model.Titulo> list = daoTitulo.listAllT();
+        Vector<Model.Titulo> list = ct.listAllT();
 
         for (Model.Titulo i : list) {
-            String aux[] = {i.getId().toString(),i.getIsbn(), i.getNome(), i.getAutor()};
+            String aux[] = {i.getId().toString(), i.getIsbn(), i.getNome(), i.getAutor()};
             d.addRow(aux);
 
         }
@@ -157,7 +145,7 @@ public class VerTitulos extends javax.swing.JFrame {
 
     public VerTitulos(View.Titulo titulo) {
         initComponents();
-        DefaultComboBoxModel model = new DefaultComboBoxModel(daoTitulo.listAll());
+        DefaultComboBoxModel model = new DefaultComboBoxModel(ct.listAll());
         this.tituloTela = titulo;
         completTable();
 
@@ -182,9 +170,7 @@ public class VerTitulos extends javax.swing.JFrame {
 
         Long id = Long.parseLong((String) resultadoTable.getValueAt(linha, 0));
 
-        
-
-        if (daoTitulo.searchByIsbn(id) == null) {
+        if (ct.searchByIsbn(id) == null) {
             ct.excluirTitulo(id);
             JOptionPane.showMessageDialog(null, "Título cujo ID: " + id + " excluido");
 

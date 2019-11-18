@@ -31,19 +31,22 @@ public class ControleItem {
         DaoEmprestimo cEmprestimo = new DaoEmprestimo();
         Emprestimo aux = cEmprestimo.searchByCodigoEmp(emprestimo.getCodigoEmprestimo());
         Long emprestimoId;
-        
+
         if (aux != null) {
             emprestimoId = aux.getId();
             for (Item i : items) {
-                if(Objects.equals(emprestimoId, i.getEmprestimo().getId()))
-                {
+                if (Objects.equals(emprestimoId, i.getEmprestimo().getId())) {
                     tmp.add(i);
                 }
             }
-            
+
             return tmp;
         }
 
         return null;
+    }
+    
+        public void excluirItem(Item item) {
+        dao.excluir(item.getId());
     }
 }

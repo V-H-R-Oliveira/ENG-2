@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.Debito;
 import Model.Titulo;
 import dao.DaoTitulo;
+import java.util.Vector;
 
 public class ControleTitulo {
 
@@ -44,4 +44,21 @@ public class ControleTitulo {
         System.out.println("O titulo não encontra-se cadastrado");
         return false;
     }
+
+    public Vector<Model.Titulo> listAllT() {
+        return dao.listAllT();
+    }
+
+    public Vector<String> listAll() {
+        return dao.listAll();
+    }
+
+    public Titulo searchByIsbn(String isbn) {
+        return dao.searchByIsbn(isbn);
+    }
+
+    public Titulo searchByIsbn(Long id) {
+        return dao.searchByIsbn(id);
+    }
+
 }

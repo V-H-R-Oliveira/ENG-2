@@ -96,12 +96,12 @@ public class Exemplar implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + (this.exemplar ? 1 : 0);
-        hash = 59 * hash + Objects.hashCode(this.titulo);
-        hash = 59 * hash + Objects.hashCode(this.codigoExemplar);
-        hash = 59 * hash + (this.isDisponivel ? 1 : 0);
-        hash = 59 * hash + Objects.hashCode(this.editora);
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + (this.exemplar ? 1 : 0);
+        hash = 13 * hash + Objects.hashCode(this.titulo);
+        hash = 13 * hash + Objects.hashCode(this.codigoExemplar);
+        hash = 13 * hash + (this.isDisponivel ? 1 : 0);
+        hash = 13 * hash + Objects.hashCode(this.editora);
         return hash;
     }
 
@@ -137,5 +137,7 @@ public class Exemplar implements Serializable {
         }
         return true;
     }
+
+    
 
 }
